@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/CompetenciasController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/bootstrap.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/preguntas.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/partials/header.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/PreguntasController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/competencias.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/puestos.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/preguntasopciones.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/empresasniveles.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/EmpresasPuestosCompetenciasController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/puestosclasificaciones.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/EmpresasNivelesController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/partials/sidebar.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/PuestosClasificacionController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/empresas.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/competenciasniveles.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/AuthController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/CompetenciasNivelesController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/resources/views/Admin/empresaspuestoscompetencias.blade.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/EmpresasController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/PuestosController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/HomeController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/ExampleController.php</file>
+            <file>file:/C:/xampp/htdocs/andamiajes/app/Admin/Controllers/PreguntasOpcionesController.php</file>
+        </group>
+    </open-files>
+</project-private>
