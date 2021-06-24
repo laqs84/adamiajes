@@ -28,15 +28,25 @@ class PreguntasController extends Controller
         $preguntas_arr = array();
         foreach ($preguntas as $key => $value) {
             $competencia = Competencias::where('con_comp', $value['con_comp'])->get();
+            $preguntas1= Preguntas::where('con_preg', $value['preg_asoc'])->get();
+            
+            if(isset($preguntas1)){
+                $preguntas1 = "No hay dato";
+            }
+            else{
+                $preguntas1 = $preguntas1[0]['descripcion'];
+            }
+            
             $preguntas_item = array(
             "descripcion" => $value['descripcion'] ? $value['descripcion'] : "No hay dato",
             "con_comp" => $competencia[0]['descripcion'] ? $competencia[0]['descripcion'] : "No hay dato",
+            "preg_asoc" => $preguntas1 ? $preguntas1 : "No hay dato",
             "acciones" => '<a style="font-size: 16px;color:green;" href="#" onclick="detalle(this)"  class="detalle-' . $value['con_preg'] . '"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" href="#" onclick="eliminar(this)" class="eliminar-' . $value['con_preg'] . '"><i class="fa fa-trash"></i></a> | <a href="#" onclick="pregunta(this)" data-pregunta="' . $value['con_preg'] . '" class="pregunta-' . $value['con_comp'] . '">Crear las opciones de la pregunta</a>'
         );
         array_push($preguntas_arr, $preguntas_item);
         }
         
-        return view('admin.preguntas' , ['competencias' => $competencias, 'preguntas' => $preguntas_arr, '_user_'      => $this->getUserData()]);
+        return view('admin.preguntas' , ['competencias' => $competencias, 'preguntas1' => $preguntas, 'preguntas' => $preguntas_arr, '_user_'      => $this->getUserData()]);
    }
    
    protected function getUserData()

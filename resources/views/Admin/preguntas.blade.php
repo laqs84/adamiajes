@@ -98,6 +98,20 @@
 
                                                         </div>
                                                     </div>
+                                                    
+                                                    <div class="form-group  ">
+
+                                                        <label for="preg_asoc" class="col-sm-2  control-label">Pregunta Asociada</label>
+
+                                                        <div class="col-sm-8">
+                                                            <select class="form-control" style="width: 100%;" id="preg_asoc" name="preg_asoc"  tabindex="-1" aria-hidden="true">
+                                                                @foreach($preguntas1 as $item)
+                                                                <option value="{{$item->con_preg}}">{{$item->descripcion}}</option>
+                                                                @endforeach
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -129,6 +143,7 @@
                                                 <tr>
                                                     <th>Descripción</th>
                                                     <th>Competencias</th>
+                                                    <th>Pregunta Asociada</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -212,9 +227,21 @@ function eliminar(elemento) {
 
 }
 function detalle(elemento) {
+    
+//$(select).html('');
+$('#preg_asoc').empty();
+var data = @json($preguntas1) ;
+var options = "";
+for (var i = 0; i < data.length; i++) {
+  options += `<option value=${data[i].con_preg}>${data[i].descripcion}</option>`;//<--string 
+                                                             //interpolation
+}
+    $("#preg_asoc").append(options);
     var id = $(elemento).attr('class').match(/\d+/)[0];
      $("#descripcion").val($($($(elemento).parent().parent())[0]).find("td").eq(0).html());
      $("#con_comp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(1)[0]).text()+'")').prop('selected', true);
+     $("#preg_asoc").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text()+'")').remove();
+     
      $(".box-title, .btn-accion").text("Editar");
      $("#con_preg").val(id);
 }
