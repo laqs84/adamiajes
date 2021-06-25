@@ -105,6 +105,7 @@
 
                                                         <div class="col-sm-8">
                                                             <select class="form-control" style="width: 100%;" id="preg_asoc" name="preg_asoc"  tabindex="-1" aria-hidden="true">
+                                                               <option value="0">Ninguna</option>
                                                                 @foreach($preguntas1 as $item)
                                                                 <option value="{{$item->con_preg}}">{{$item->descripcion}}</option>
                                                                 @endforeach
@@ -232,6 +233,7 @@ function detalle(elemento) {
 $('#preg_asoc').empty();
 var data = @json($preguntas1) ;
 var options = "";
+options += "<option value'0'>Ninguna</option>";
 for (var i = 0; i < data.length; i++) {
   options += `<option value=${data[i].con_preg}>${data[i].descripcion}</option>`;//<--string 
                                                              //interpolation
