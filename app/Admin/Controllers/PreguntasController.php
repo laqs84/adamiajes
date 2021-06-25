@@ -30,11 +30,11 @@ class PreguntasController extends Controller
             $competencia = Competencias::where('con_comp', $value['con_comp'])->get();
             $preguntas1= Preguntas::where('con_preg', $value['preg_asoc'])->get();
             
-            if(isset($preguntas1)){
+            if(empty($preguntas1)){
                 $preguntas1 = "No hay dato";
             }
             else{
-                $preguntas1 = $preguntas1[0]['descripcion'];
+                $preguntas1 = $preguntas1->pluck("descripcion")->first();
             }
             
             $preguntas_item = array(
@@ -61,7 +61,7 @@ class PreguntasController extends Controller
    public function store(Request $request)
     {
        if($request['con_preg'] !== null){
-         $update = \DB::table('competencias_preguntas') ->where('con_preg', $request['con_preg']) ->limit(1) ->update( [ 'descripcion' => $request['descripcion'], 'con_comp' => $request['con_comp']]);  
+         $update = \DB::table('competencias_preguntas') ->where('con_preg', $request['con_preg']) ->limit(1) ->update( [ 'descripcion' => $request['descripcion'], 'con_comp' => $request['con_comp'], 'preg_asoc' => $request['preg_asoc']]);  
        }
        else{
          $preguntas = Preguntas::create($request->all());  
