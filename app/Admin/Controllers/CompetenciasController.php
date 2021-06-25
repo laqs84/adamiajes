@@ -33,6 +33,8 @@ class CompetenciasController extends Controller
         
         return view('admin.competencias' , ['competenciasTipos' => $competenciasTipos, 'competencias' => $competencias_arr, '_user_'      => $this->getUserData()]);
    }
+
+
    
    protected function getUserData()
     {

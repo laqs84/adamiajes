@@ -90,7 +90,12 @@
                         </a>
                     </li>
                   
-                    
+                    <li>
+                        <a href="/admin/calificacion_resultados">
+                            <i class="fa fa-asterisk"></i>
+                            <span>Calificación</span>
+                        </a>
+                    </li>                    
 
                 </ul>
             </li>
