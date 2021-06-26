@@ -229,8 +229,8 @@
                 </div>
  <script>
 $(document).ready(function () {
-    $("#aplicar_rr_no_ni1").prop("checked", true);
-    $("#aplicar_rr_no_ni").val("on");
+    $("#aplicar_rr_no_ni1").prop("checked", false);
+    $("#aplicar_rr_no_ni").val("off");
     $('#aplicar_rr_no_ni1').click(function() {
     if (!$(this).is(':checked')) {
       $("#aplicar_rr_no_ni").val("off");

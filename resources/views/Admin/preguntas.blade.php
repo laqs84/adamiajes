@@ -181,8 +181,8 @@
  <script>
 $(document).ready(function () {
     
-    $("#score1").prop("checked", true);
-    $("#score").val("on");
+    $("#score1").prop("checked", false);
+    $("#score").val("off");
     $('#score1').click(function() {
     if (!$(this).is(':checked')) {
       $("#score").val("off");
