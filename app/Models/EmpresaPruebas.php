@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmpresasPruebas extends Model
+class EmpresaPruebas extends Model
 {
     use HasFactory;
     protected $hidden = ['numsec_prueba'];

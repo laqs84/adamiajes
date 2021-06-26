@@ -3,8 +3,9 @@
 namespace App\Admin\Controllers;
 
 Use App\Models\Empresas;
-Use App\Models\EmpresasPruebas;
+Use App\Models\EmpresaPruebas;
 Use App\Models\Puestos;
+Use App\Models\Competencias;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ Use Redirect;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Support\Arr;
 
-class EmpresasPruebasController extends Controller
+class EmpresaPruebasController extends Controller
 {
     public function index(Request $request){
         
@@ -26,8 +27,9 @@ class EmpresasPruebasController extends Controller
             $empresasAll = Empresas::all();
             
         }
+        $Competencias = Competencias::all();
         $puestosAll = Puestos::all();
-        $empresaspruebas = EmpresasPruebas::all();
+        $empresaspruebas = EmpresaPruebas::all();
         $empresas_arr = array();
         foreach ($empresaspruebas as $key => $value) {
            $puestos = Puestos::where('con_pue', $value['con_pue'])->get();
@@ -48,7 +50,7 @@ class EmpresasPruebasController extends Controller
         
         
         
-        return view('admin.empresaspruebas' , ['empresaspruebas' => $empresas_arr, 'empresas' => $empresasAll, 'puestos' => $puestosAll, '_user_'      => $this->getUserData()]);
+        return view('admin.empresapruebas' , ['empresaspruebas' => $empresas_arr, 'empresas' => $empresasAll, 'competencias' => $Competencias, 'puestos' => $puestosAll, '_user_'      => $this->getUserData()]);
    }
    
    protected function getUserData()

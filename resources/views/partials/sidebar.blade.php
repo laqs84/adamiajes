@@ -107,6 +107,12 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
+                    <li>
+                        <a href="/admin/empresaniveles">
+                            <i class="fa fa-level-up-alt"></i>
+                            <span>Niveles de las Empresas</span>
+                        </a>
+                    </li>
 
                     <li>
                         <a href="/admin/empresas">
@@ -115,11 +121,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/empresasniveles">
-                            <i class="fa fa-level-up-alt"></i>
-                            <span>Niveles de las Empresas</span>
+                        <a href="/admin/empresa_pruebas">
+                            <i class="fa fa-building"></i>
+                            <span>Pruebas de Empresas</span>
                         </a>
                     </li>
+
+                    
                     
                     
                     
