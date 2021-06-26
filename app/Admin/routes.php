@@ -36,13 +36,14 @@ Route::group([
     Route::post('preguntas-opciones/{id}/{idpreg}', 'PreguntasOpcionesController@store')->name('preguntas-opciones.store');
     Route::post('preguntas-opciones', 'PreguntasOpcionesController@store')->name('preguntas-opciones.store');
 
-    $router->get('/', 'CalificacionResultadosController@index')->name('home');
+    //$router->get('/', 'CalificacionResultadosController@index')->name('home');
     //Calificacion resultados
     Route::get('calificacion_resultados', 'CalificacionResultadosController@index')->name('calificacion_resultados.index');
     Route::delete('calificacion_resultados/delete/{id}', 'CalificacionResultadosController@delete')->name('calificacion_resultados.delete');
     Route::post('calificacion_resultados', 'CalificacionResultadosController@store')->name('calificacion_resultados.store');
     Route::get('/getCompetencias/{id}', 'CalificacionResultadosController@getCompetencias');
     //Empresas
+    
     Route::get('empresas', 'EmpresasController@index')->name('empresas.index');
     
     Route::delete('empresas/delete/{id}', 'EmpresasController@delete')->name('empresas.delete');

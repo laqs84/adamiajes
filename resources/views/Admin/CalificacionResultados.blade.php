@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Competencias</title>
+        <title>Calificación Resultados </title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -93,10 +93,10 @@
                                                         <label for="tipo_puntuacion" class="col-sm-2  control-label">Tipo Puntuación</label>
 
                                                         <div class="col-sm-10">
-                                                            <select class="form-control" style="width: 100%;" id="tipo_puntuacion" name="con_tipo"  tabindex="-1" aria-hidden="true">
-                                                              <option value="PC">Por competencia</option>
+                                                            <select class="form-control" style="width: 100%;" id="tipo_puntuacion" name="tipo_puntuacion"  tabindex="-1" aria-hidden="true">
+                                                              <option value="PC">Por Competencia</option>
                                                               <option value="PTC">Por total de competencias</option>
-                                                              <option value="PNEL">Niveles esperados logrados</option>
+                                                              <option value="PNEL">Por niveles esperados logrados</option>
                                                             </select>
 
                                                         </div>
@@ -156,7 +156,16 @@
                                                             <textarea name="recomendacion" id="recomendacion" class="form-control recomendacion" rows="5" placeholder="Recomendación"></textarea>
                                                         </div>
                                                     </div>     
+                                                    <div class="form-group  ">
 
+                                                        <label for="aplicar_rr_no_ni" class="col-sm-2  control-label">Recomendaciones adicionales acumuladas</label>
+
+                                                        <div class="col-sm-4">
+                                                            <input type="checkbox" class="form-check-input" name="aplicar_rr_no_ni1" id="aplicar_rr_no_ni1">  
+                                                            <input type="hidden" id="aplicar_rr_no_ni" name="aplicar_rr_no_ni">
+
+                                                        </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -186,8 +195,16 @@
                                         <table id="competencias" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Predominancia Resultado</th>
                                                     <th>Tipo de Competencias</th>
+                                                    <th>Tipo Puntuación</th>
+                                                    <th>Competencia</th>
+                                                    <th>Rango inicial</th><!-- comment -->
+                                                    <th>Rango final</th><!-- comment -->
+                                                    <th>Predominancia del Resultado</th><!-- comment -->
+                                                    <th>Resultado Descriptivo</th><!-- comment -->
+                                                    <th>Comportamiento descriptivo</th><!-- comment -->
+                                                    <th>Recomendación</th>
+                                                    <th>Recomendaciones adicionales acumuladas</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -214,6 +231,18 @@
                 </div>
  <script>
 $(document).ready(function () {
+    $("#aplicar_rr_no_ni1").prop("checked", true);
+    $("#aplicar_rr_no_ni").val("on");
+    $('#aplicar_rr_no_ni1').click(function() {
+    if (!$(this).is(':checked')) {
+      $("#aplicar_rr_no_ni").val("off");
+      $("#aplicar_rr_no_ni1").prop("checked", false);
+    }
+    else{
+      $("#aplicar_rr_no_ni").val("on");
+      $("#aplicar_rr_no_ni1").prop("checked", true);
+    }
+  });
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -311,10 +340,27 @@ function eliminar(elemento) {
 }
 function detalle(elemento) {
     var id = $(elemento).attr('class').match(/\d+/)[0];
-    $("#predominancia_resultado").val($($($(elemento).parent().parent())[0]).find("td").eq(0).html());
-    $("#con_tipo").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(1)[0]).text()+'")').prop('selected', true);
+    $("#con_tipo").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text()+'")').prop('selected', true);
+    $("#tipo_puntuacion").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(1)[0]).text()+'")').prop('selected', true);
+    $("#con_comp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(2)[0]).text()+'")').prop('selected', true);
+    $("#rango_inicial").val($($($(elemento).parent().parent())[0]).find("td").eq(3).html());
+    $("#rango_final").val($($($(elemento).parent().parent())[0]).find("td").eq(4).html());
+    $("#predominancia_resultado").val($($($(elemento).parent().parent())[0]).find("td").eq(5).html());
+    $("#resultado_descriptivo").val($($($(elemento).parent().parent())[0]).find("td").eq(6).html());
+    $("#comportamiento_descriptivo").val($($($(elemento).parent().parent())[0]).find("td").eq(7).html());
+    if($($($(elemento).parent().parent())[0]).find("td").eq(9).html() == "Aplicar recomendaciones por resultados de nivel obtenido"){
+        $("#aplicar_rr_no_ni").val("on");
+        $("#aplicar_rr_no_ni1").prop("checked", true);
+    }
+    else{
+        $("#aplicar_rr_no_ni").val("off");
+        $("#aplicar_rr_no_ni1").prop("checked", false);
+    }
+        
+    $("#recomendacion").val($($($(elemento).parent().parent())[0]).find("td").eq(8).html());
+    
     $(".box-title, .btn-accion").text("Editar");
-    $("#con_comp").val(id);
+    $("#con_puntaje").val(id);
 }
 function pregunta(elemento) {
     var id = $(elemento).attr('class').match(/\d+/)[0];
