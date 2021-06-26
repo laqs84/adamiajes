@@ -54,7 +54,7 @@ class CalificacionResultadosController extends Controller
             "comportamiento_descriptivo" => $value['comportamiento_descriptivo'] ? $value['comportamiento_descriptivo'] : "No hay dato",
             "recomendacion" => $value['recomendacion'] ? $value['recomendacion'] : "No hay dato",
             "aplicar_rr_no_ni" => $aplicar_rr_no_ni ? $aplicar_rr_no_ni : "No hay dato",
-            "aciones" => '<a style="font-size: 16px;color:green;" title="Editar" href="#" onclick="detalle(this)" class="detalle-'.$value['con_puntaje'].'"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" title="Eliminar" href="#" onclick="eliminar(this)" class="eliminar-'.$value['con_puntaje'].'"><i class="fa fa-trash"></i></a> | <a href="#" onclick="pregunta(this)" class="recomendacion-'.$value['consecutivo_recomendación'].'">Crear una recomendacion</a>');
+            "aciones" => '<a style="font-size: 16px;color:green;" title="Editar" href="#" onclick="detalle(this)" class="detalle-'.$value['con_puntaje'].'"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" title="Eliminar" href="#" onclick="eliminar(this)" class="eliminar-'.$value['con_puntaje'].'"><i class="fa fa-trash"></i></a> | <a href="#" onclick="pregunta(this)" class="recomendacion-'.$value['con_puntaje'].'">Crear una recomendacion</a>');
         array_push($CalificacionResultados_arr, $CalificacionResultados_item);
         }
         

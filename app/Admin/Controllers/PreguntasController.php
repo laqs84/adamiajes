@@ -37,10 +37,18 @@ class PreguntasController extends Controller
                 $preguntas1 = $preguntas1->pluck("descripcion")->first();
             }
             
+            if($value['score'] == "on"){
+                $score = "Si";
+            }
+            else{
+                $score = "No";
+            }
+            
             $preguntas_item = array(
             "descripcion" => $value['descripcion'] ? $value['descripcion'] : "No hay dato",
             "con_comp" => $competencia[0]['descripcion'] ? $competencia[0]['descripcion'] : "No hay dato",
             "preg_asoc" => $preguntas1 ? $preguntas1 : "No hay dato",
+            "score" => $score ? $score : "No hay dato",
             "acciones" => '<a style="font-size: 16px;color:green;" href="#" onclick="detalle(this)"  class="detalle-' . $value['con_preg'] . '"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" href="#" onclick="eliminar(this)" class="eliminar-' . $value['con_preg'] . '"><i class="fa fa-trash"></i></a> | <a href="#" onclick="pregunta(this)" data-pregunta="' . $value['con_preg'] . '" class="pregunta-' . $value['con_comp'] . '">Crear las opciones de la pregunta</a>'
         );
         array_push($preguntas_arr, $preguntas_item);

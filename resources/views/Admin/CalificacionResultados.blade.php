@@ -157,10 +157,8 @@
                                                         </div>
                                                     </div>     
                                                     <div class="form-group  ">
-
-                                                        <label for="aplicar_rr_no_ni" class="col-sm-2  control-label">Recomendaciones adicionales acumuladas</label>
-
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-12">
+                                                             <label for="aplicar_rr_no_ni" class="col-sm-6  control-label">Recomendaciones adicionales acumuladas</label>
                                                             <input type="checkbox" class="form-check-input" name="aplicar_rr_no_ni1" id="aplicar_rr_no_ni1">  
                                                             <input type="hidden" id="aplicar_rr_no_ni" name="aplicar_rr_no_ni">
 
@@ -290,6 +288,7 @@ $(document).ready(function () {
     var endpoint = "localhost:8000/admin/";
     $('#competencias').DataTable(
             {
+                responsive: true,
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -364,7 +363,7 @@ function detalle(elemento) {
 }
 function pregunta(elemento) {
     var id = $(elemento).attr('class').match(/\d+/)[0];
-    document.location.href = '/admin/preguntas/'+id;
+    document.location.href = '/admin/recomendaciones/'+id;
 }
         </script>
             </div>

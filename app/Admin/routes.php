@@ -42,6 +42,14 @@ Route::group([
     Route::delete('calificacion_resultados/delete/{id}', 'CalificacionResultadosController@delete')->name('calificacion_resultados.delete');
     Route::post('calificacion_resultados', 'CalificacionResultadosController@store')->name('calificacion_resultados.store');
     Route::get('/getCompetencias/{id}', 'CalificacionResultadosController@getCompetencias');
+    
+    //Recomendaciones
+    Route::get('recomendaciones/{id}', 'RecomendacionesController@index')->name('recomendaciones.index');
+    Route::get('recomendaciones', 'RecomendacionesController@index')->name('recomendaciones.index');
+    Route::delete('recomendaciones/delete/{id}', 'RecomendacionesController@delete')->name('recomendaciones.delete');
+    Route::post('recomendaciones/{id}', 'RecomendacionesController@store')->name('recomendaciones.store');
+    Route::post('recomendaciones', 'RecomendacionesController@store')->name('recomendaciones.store');
+    
     //Empresas
     
     Route::get('empresas', 'EmpresasController@index')->name('empresas.index');
