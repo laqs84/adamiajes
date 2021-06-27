@@ -38,14 +38,14 @@ class EmpresasPuestosCompetenciasController extends Controller
         $empresas_arr = array();
         foreach ($empresasPuestosCompetencias as $key => $value) {
            $competencias = Competencias::where('con_comp', $value['con_comp'])->get();
-           $competenciasNiveles = EmpresasCompetenciasNiveldominio::where('con_nivdom', $value['con_nivdom'])->get();
+           $competenciasNiveles = CompetenciasNiveles::where('con_nivdom', $value['con_nivdom'])->get();
            $puestos = Puestos::where('con_pue', $value['con_pue'])->get();
            $empresas = Empresas::where('con_emp', $value['con_emp'])->get();
            $empresas_item = array(
             "con_emp" => $empresas[0]['descripcion'] ? $empresas[0]['descripcion'] : "No hay dato",
             "con_pue" => $puestos[0]['descripcion'] ? $puestos[0]['descripcion'] : "No hay dato",
             "con_comp" => $competencias[0]['descripcion'] ? $competencias[0]['descripcion'] : "No hay dato",
-            "con_nivdom" => $competenciasNiveles[0]['valor_esperado'] ? $competenciasNiveles[0]['valor_esperado'] : "No hay dato",
+            "con_nivdom" => $competenciasNiveles[0]['descripcion'] ? $competenciasNiveles[0]['descripcion'] : "No hay dato",
             "acciones" => '<a style="font-size: 16px;color:green;" href="#" onclick="detalle(this)" class="detalle-' . $value['con_emp_pue_comp'] . '"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" href="#" onclick="eliminar(this)" class="eliminar-' . $value['con_emp_pue_comp'] . '"><i class="fa fa-trash"></i></a>'
         );
           // var_dump($value['con_pue']);

@@ -116,7 +116,7 @@
                                                     </div>
                                                     <div class="form-group  ">
 
-                                                        <label for="con_nivdom" class="col-sm-2  control-label">Niveles de las Competencias</label>
+                                                        <label for="con_nivdom" class="col-sm-2  control-label">Nivel esperado</label>
 
                                                         <div class="col-sm-8">
                                                             <select class="form-control" style="width: 100%;" id="con_nivdom" name="con_nivdom"  tabindex="-1" aria-hidden="true">
@@ -160,7 +160,7 @@
                                                     <th>Empresa</th>
                                                     <th>Puesto</th>
                                                     <th>Competencia</th>
-                                                    <th>Nivel de la Competencia</th>
+                                                    <th>Nivel esperado</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>

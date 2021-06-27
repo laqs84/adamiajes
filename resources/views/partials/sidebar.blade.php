@@ -108,7 +108,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="/admin/empresaniveles">
+                        <a href="/admin/empresasniveles">
                             <i class="fa fa-level-up-alt"></i>
                             <span>Niveles de las Empresas</span>
                         </a>
