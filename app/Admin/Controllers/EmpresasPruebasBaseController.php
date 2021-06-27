@@ -22,6 +22,7 @@ class EmpresasPruebasBaseController extends Controller
         $empresaspb_arr = array();
         foreach ($EmpresasPruebasBase as $key => $value) {
            $competenciasTipo = CompetenciasTipos::where('con_tipo', $value['con_tipo'])->get();
+
            $usa = "No";
            $link = "Incluir competencias a evaluar";
            if($value['usa_allcompdis']=="on"){
@@ -33,7 +34,7 @@ class EmpresasPruebasBaseController extends Controller
            $empresaspb_item = array(
             "descripcion" => $value['descripcion'] ? $value['descripcion'] : "No hay dato",
             "instrucciones" => $value['instrucciones'] ? $value['instrucciones'] : "No hay dato",            
-            "con_tipo" => $value['con_tipo'] ? $value['con_tipo'] : "No hay dato",
+            "con_tipo" => $competenciasTipo[0]['descripcion'] ? $competenciasTipo[0]['descripcion']  : "No hay dato",
             "usa_allcompdis" => $usa,                                  
             "acciones" => '<a style="font-size: 16px;color:green;" href="#" onclick="detalle(this)" class="detalle-' . $value['con_test'] . '"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" href="#" onclick="eliminar(this)" class="eliminar-' . $value['con_test'] . '"><i class="fa fa-trash"></i></a> | <a href="#" onclick="exc_comp(this)" class="comp-' . $value['con_test'] . '">'.$link.'</a>'
         );
