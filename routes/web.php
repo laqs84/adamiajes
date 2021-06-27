@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('webpages.index');
+   return \Redirect::to('https://andamiajescr.com/web/');
 });

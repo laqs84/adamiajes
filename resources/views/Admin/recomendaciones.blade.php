@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Preguntas</title>
+        <title>Recomendaciones</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -49,7 +49,7 @@
                 <div id="app">
                     <section class="content-header">
                         <h1>
-                            Preguntas
+                            Recomendaciones
                             <small>Mantemiento</small>
                         </h1>
                     </section>
@@ -69,7 +69,7 @@
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
-                                    <form id="form-creacion" action="/admin/preguntas" method="post" class="form-horizontal" accept-charset="UTF-8" pjax-container="">
+                                    <form id="form-creacion" action="recomendaciones" method="post" class="form-horizontal" accept-charset="UTF-8" pjax-container="">
                                         @csrf <!-- {{ csrf_field() }} -->
                                         <div class="box-body">
 
@@ -78,46 +78,23 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group  ">
 
-                                                        <label for="descripcion" class="col-sm-2  control-label">Descripción</label>
+                                                        <label for="detalle_recomendacion" class="col-sm-2  control-label">Detalle Recomendación</label>
 
                                                         <div class="col-sm-8">
-                                                            <textarea name="descripcion" id="descripcion" class="form-control descripcion" rows="5" placeholder="Descripción"></textarea>
-                                                            <input type="hidden" id="con_preg" name="con_preg">
+                                                            <textarea name="detalle_recomendacion" id="detalle_recomendacion" class="form-control descripcion" rows="5" placeholder="Descripción"></textarea>
+                                                            <input type="hidden" id="consecutivo_recomendacion " name="consecutivo_recomendacion ">
                                                         </div>
                                                     </div>
                                                     <div class="form-group  ">
 
-                                                        <label for="tipo_comp" class="col-sm-2  control-label">Competencias</label>
+                                                        <label for="con_puntaje" class="col-sm-2  control-label">Calificación</label>
 
                                                         <div class="col-sm-8">
-                                                            <select class="form-control" style="width: 100%;" id="con_comp" name="con_comp"  tabindex="-1" aria-hidden="true">
-                                                                @foreach($competencias as $item)
-                                                                <option value="{{$item->con_comp}}">{{$item->descripcion}}</option>
+                                                            <select class="form-control" style="width: 100%;" id="con_puntaje" name="con_puntaje"  tabindex="-1" aria-hidden="true">
+                                                                @foreach($clasificaciones as $item)
+                                                                <option value="{{$item->con_puntaje}}">{{$item->recomendacion}}</option>
                                                                 @endforeach
                                                             </select>
-
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="form-group  ">
-
-                                                        <label for="preg_asoc" class="col-sm-2  control-label">Pregunta Asociada</label>
-
-                                                        <div class="col-sm-8">
-                                                            <select class="form-control" style="width: 100%;" id="preg_asoc" name="preg_asoc"  tabindex="-1" aria-hidden="true">
-                                                               <option value="0">Ninguna</option>
-                                                                @foreach($preguntas1 as $item)
-                                                                <option value="{{$item->con_preg}}">{{$item->descripcion}}</option>
-                                                                @endforeach
-                                                            </select>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group  ">
-                                                        <div class="col-sm-12">
-                                                             <label for="aplicar_rr_no_ni" class="col-sm-6  control-label">Score</label>
-                                                            <input type="checkbox" class="form-check-input" name="score1" id="score1">  
-                                                            <input type="hidden" id="score" name="score">
 
                                                         </div>
                                                     </div>
@@ -150,15 +127,13 @@
                                         <table id="preguntas" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Descripción</th>
-                                                    <th>Competencias</th>
-                                                    <th>Pregunta Asociada</th>
-                                                    <th>Score</th>
+                                                    <th>Calificación</th>
+                                                    <th>Detalle Recomendación</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($preguntas as $id=>$json)
+                                                @foreach ($recomendaciones as $id=>$json)
                                                 <tr>
                                                     @foreach ($json as $key=>$val)
 
@@ -178,22 +153,8 @@
                     </section>
 
                 </div>
- <script>
+<script>
 $(document).ready(function () {
-    
-    $("#score1").prop("checked", false);
-    $("#score").val("off");
-    $('#score1').click(function() {
-    if (!$(this).is(':checked')) {
-      $("#score").val("off");
-      $("#score1").prop("checked", false);
-    }
-    else{
-      $("#score").val("on");
-      $("#score1").prop("checked", true);
-    }
-  });
-    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -235,7 +196,7 @@ function eliminar(elemento) {
     var id = $(elemento).attr('class').match(/\d+/)[0];
     $.ajax(
             {
-                url: "/admin/preguntas/delete/" + id,
+                url: "/admin/recomendaciones/delete/" + id,
                 type: 'DELETE',
                 dataType: "JSON",
                 data: {
@@ -251,37 +212,13 @@ function eliminar(elemento) {
 
 }
 function detalle(elemento) {
-    
-//$(select).html('');
-$('#preg_asoc').empty();
-var data = @json($preguntas1) ;
-var options = "";
-options += "<option value'0'>Ninguna</option>";
-for (var i = 0; i < data.length; i++) {
-  options += `<option value=${data[i].con_preg}>${data[i].descripcion}</option>`;//<--string 
-                                                             //interpolation
-}
-    $("#preg_asoc").append(options);
     var id = $(elemento).attr('class').match(/\d+/)[0];
-     $("#descripcion").val($($($(elemento).parent().parent())[0]).find("td").eq(0).html());
-     $("#con_comp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(1)[0]).text()+'")').prop('selected', true);
-     $("#preg_asoc").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text()+'")').remove();
-     if($($($(elemento).parent().parent())[0]).find("td").eq(2).html() == "Si"){
-        $("#aplicar_rr_no_ni").val("on");
-        $("#aplicar_rr_no_ni1").prop("checked", true);
-    }
-    else{
-        $("#aplicar_rr_no_ni").val("off");
-        $("#aplicar_rr_no_ni1").prop("checked", false);
-    }
+     $("#detalle_recomendacion").val($($($(elemento).parent().parent())[0]).find("td").eq(1).html());
+     $("#con_puntaje").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text()+'")').prop('selected', true);
      $(".box-title, .btn-accion").text("Editar");
-     $("#con_preg").val(id);
+     $("#consecutivo_recomendacion").val(id);
 }
-function pregunta(elemento) {
-    var preg = $(elemento).attr('data-pregunta');
-    var id = $(elemento).attr('class').match(/\d+/)[0];
-    document.location.href = '/admin/preguntas-opciones/'+id+'/'+preg;
-}
+
         </script>
             </div>
 
