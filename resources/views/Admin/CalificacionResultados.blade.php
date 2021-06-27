@@ -331,7 +331,7 @@ function eliminar(elemento) {
                 success: function ()
                 {
 
-                    var table = $('#calificacion_resultados').DataTable();
+                    var table = $('#competencias').DataTable();
                     table.row($($(elemento).parent()).parents('tr')).remove().draw();
                 }
             });
