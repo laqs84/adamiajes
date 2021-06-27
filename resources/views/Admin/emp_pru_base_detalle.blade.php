@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Competencias a excluir de la prueba</title>
+        <title>{{$titulo}}</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -48,7 +48,7 @@
                 <div id="app">
                     <section class="content-header">
                         <h1>
-                            Competencias excluidas de Prueba
+                            {{$titulo}}
                             <small>Mantemiento</small>
                         </h1>
                     </section>

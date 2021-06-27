@@ -23,6 +23,10 @@ class EmpresasPruebasBaseDetalleController extends Controller
         if($request["id"]){
             $empresasPruebasBase = EmpresasPruebasBase::where('con_test', $request["id"])->get();
             $con_emp = $empresasPruebasBase[0]->con_emp;
+            $titulo = "Competencias a excluir de la prueba";
+            if($empresasPruebasBase[0]->usa_allcompdis !="on"){
+              $titulo = "Competencias a incluir en la prueba";
+            };
             $empresasPruebasBaseDetalle = EmpresasPruebasBaseDetalle::where('con_test', $request["id"])->get();
             $empresasAll = Empresas::where('con_emp', $con_emp)->get();
             $competenciasAll = Competencias::all();
@@ -54,7 +58,7 @@ class EmpresasPruebasBaseDetalleController extends Controller
         
         //var_dump($competenciasNivelesAll);
         
-       return view('admin.emp_pru_base_detalle' , ['empresas_pruebas_base_detalle' => $empresas_arr, 'competencias' => $competenciasAll, 'empresas' => $empresasAll, 'con_test' => $request["id"], '_user_'      => $this->getUserData()]);
+       return view('admin.emp_pru_base_detalle' , ['empresas_pruebas_base_detalle' => $empresas_arr, 'competencias' => $competenciasAll, 'empresas' => $empresasAll, 'con_test' => $request["id"],  'titulo' => $titulo, '_user_'      => $this->getUserData()]);
    }
    
    protected function getUserData()
