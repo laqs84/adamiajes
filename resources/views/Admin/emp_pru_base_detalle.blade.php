@@ -85,7 +85,8 @@
                                                                 <option value="{{$item->con_emp}}">{{$item->descripcion}}</option>
                                                                 @endforeach
                                                             </select>
-<input type="text" id="con_test" name="con_test" value="{{$con_test}}" hidden="">
+                                                            <input type="hidden" id="con_test" name="con_test" value="{{$con_test}}">
+                                                            <input type="hidden" id="con_detprubas" name="con_detprubas" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group  ">
@@ -219,9 +220,9 @@ function detalle(elemento) {
     debugger;
     var id = $(elemento).attr('class').match(/\d+/)[0];
     $("#con_emp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text()+'")').prop('selected', true);
-    $("#con_comp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(2)[0]).text()+'")').prop('selected', true);
+    $("#con_comp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(1)[0]).text()+'")').prop('selected', true);
     $(".box-title, .btn-accion").text("Editar");
-    $("#con_emp").val(id);
+    $("#con_detprubas").val(id);
 }
         </script>
             </div>

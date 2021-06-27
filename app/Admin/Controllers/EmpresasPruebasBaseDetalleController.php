@@ -75,7 +75,13 @@ class EmpresasPruebasBaseDetalleController extends Controller
          $empresas = EmpresasPruebasBaseDetalle::create($request->all());  
        }
 
-        return Redirect::to('admin/emp_pru_base_detalle');
+       if($request['con_comp'] !== null){
+        return Redirect::to('admin/emp_pru_base_detalle/'.$request['con_comp']);
+       }
+       else{
+       return Redirect::to('admin/emp_pru_base_detalle'); 
+       }
+        
     }
     
     public function delete($id)
