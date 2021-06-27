@@ -65,6 +65,19 @@ Route::group([
     
     Route::delete('empresa_pruebas/delete/{id}', 'EmpresaPruebasController@delete')->name('empresa_pruebas.delete');
     Route::post('empresa_pruebas', 'EmpresaPruebasController@store')->name('empresa_pruebas.store');
+
+    //Empresas pruebas base
+    Route::get('empresas_pruebas_base', 'EmpresasPruebasBaseController@index')->name('empresas_pruebas_base.index');
+    
+    Route::delete('empresas_pruebas_base/delete/{id}', 'EmpresasPruebasBaseController@delete')->name('empresas_pruebas_base.delete');
+    Route::post('empresas_pruebas_base', 'EmpresasPruebasBaseController@store')->name('empresas_pruebas_base.store');
+
+    //Empresas pruebas base detalle
+    Route::get('emp_pru_base_detalle/{id}', 'EmpresasPruebasBaseDetalleController@index')->name('emp_pru_base_detalle.index');
+    
+    Route::delete('emp_pru_base_detalle/delete/{id}', 'EmpresasPruebasBaseDetalleController@delete')->name('emp_pru_base_detalle.delete');
+    Route::post('emp_pru_base_detalle/{id}', 'EmpresasPruebasBaseDetalleController@store')->name('emp_pru_base_detalle.store');
+
     
      //Empresas tipos
     Route::get('competenciastipos', 'CompetenciasTiposController@index')->name('competenciastipos.index');

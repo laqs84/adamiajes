@@ -121,6 +121,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/admin/empresas_pruebas_base">
+                            <i class="fa fa-building"></i>
+                            <span>Base Pruebas de Empresas</span>
+                        </a>
+                    </li>                    
+                    <li>
                         <a href="/admin/empresa_pruebas">
                             <i class="fa fa-building"></i>
                             <span>Pruebas de Empresas</span>
