@@ -62,7 +62,7 @@ Route::group([
     Route::get('empresaspuestoscompetencias', 'EmpresasPuestosCompetenciasController@index')->name('empresaspuestoscompetencias.index');
     Route::get('empresaspuestoscompetencias/{id}', 'EmpresasPuestosCompetenciasController@index')->name('empresaspuestoscompetencias.index');
     Route::delete('empresaspuestoscompetencias/delete/{id}', 'EmpresasPuestosCompetenciasController@delete')->name('empresaspuestoscompetencias.delete');
-    Route::post('empresaspuestoscompetencias', 'EmpresasPuestosCompetenciasController@store')->name('empresaspuestoscompetencias.store');
+    Route::post('empresaspuestoscompetencias/{id}', 'EmpresasPuestosCompetenciasController@store')->name('empresaspuestoscompetencias.store');
     
      //Empresas Niveles
     Route::get('empresasniveles', 'EmpresasNivelesController@index')->name('empresasniveles.index');
