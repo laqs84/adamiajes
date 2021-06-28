@@ -104,7 +104,12 @@ echo json_encode($json_data);  // send data as json format
          $empresas = EmpresasPuestosCompetencias::create($request->all());  
        }
 
-        return Redirect::to('admin/empresaspuestoscompetencias');
+       if($request['con_emp'] !== null){
+        return Redirect::to('admin/empresaspuestoscompetencias/'.$request['con_emp']);
+       }
+       else{
+       return Redirect::to('admin/empresaspuestoscompetencias'); 
+       }
     }
     
     public function delete($id)
