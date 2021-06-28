@@ -121,4 +121,7 @@ Route::group([
     Route::get('administradores/{id}', 'AdministradoresControllers@index')->name('administradores.index');
     Route::delete('administradores/delete/{id}', 'AdministradoresControllers@delete')->name('administradores.delete');
     Route::post('administradores', 'AdministradoresControllers@store')->name('administradores.store');
+    
+    
+    Route::get('informe', 'InformeController@index')->name('informe.index');
 });
