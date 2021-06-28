@@ -102,4 +102,10 @@ Route::group([
     Route::get('puestosclasificaciones', 'PuestosClasificacionController@index')->name('puestosclasificaciones.index');
     Route::delete('puestosclasificaciones/delete/{id}', 'PuestosClasificacionController@delete')->name('puestosclasificaciones.delete');
     Route::post('puestosclasificaciones', 'PuestosClasificacionController@store')->name('puestosclasificaciones.store');
+    
+    //Administradores
+    Route::get('administradores', 'AdministradoresControllers@index')->name('administradores.index');
+    Route::get('administradores/{id}', 'AdministradoresControllers@index')->name('administradores.index');
+    Route::delete('administradores/delete/{id}', 'AdministradoresControllers@delete')->name('administradores.delete');
+    Route::post('administradores', 'AdministradoresControllers@store')->name('administradores.store');
 });

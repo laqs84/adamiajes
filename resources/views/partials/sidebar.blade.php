@@ -47,6 +47,46 @@
                 </a>
             </li>
 
+            
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-cogs"></i>
+                    <span>Admin</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+
+                    <li>
+                        <a href="">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <span>Candidatos</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/admin/administradores">
+                            <i class="fa fa-users"></i>
+                            <span>Administraor</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/admin/auth/roles">
+                            <i class="fa fa-user"></i>
+                            <span>Roles</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/admin/auth/permissions">
+                            <i class="fa fa-ban"></i>
+                            <span>Permisos</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
+            
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-tasks"></i>
@@ -57,21 +97,21 @@
 
                     <li>
                         <a href="/admin/competenciastipos">
-                            <i class="fa fa-level-up-alt"></i>
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                             <span>Tipos Competencias</span>
                         </a>
                     </li>
                     
                     <li>
                         <a href="/admin/competenciasniveles">
-                            <i class="fa fa-level-up-alt"></i>
+                            <i class="fa fa-level-up" aria-hidden="true"></i>
                             <span>Niveles Competencias</span>
                         </a>
                     </li>
                     
                     <li>
                         <a href="/admin/puestosclasificaciones">
-                            <i class="fa fa-star-half-alt"></i>
+                            <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
                             <span>Clasificaciones Puestos</span>
                         </a>
                     </li>
@@ -109,7 +149,7 @@
                 <ul class="treeview-menu">
                     <li>
                         <a href="/admin/empresasniveles">
-                            <i class="fa fa-level-up-alt"></i>
+                            <i class="fa fa-level-up" aria-hidden="true"></i>
                             <span>Niveles de las Empresas</span>
                         </a>
                     </li>
