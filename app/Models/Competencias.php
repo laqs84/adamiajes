@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Competencias extends Model
 {
     use HasFactory;
-    protected $hidden = ['con_comp'];
+   // protected $hidden = ['con_comp'];
     
-    protected $fillable = ['descripcion', 'con_tipo', 'created_at', 'updated_at'];
+    protected $fillable = ['con_comp','descripcion', 'con_tipo', 'created_at', 'updated_at'];
 }

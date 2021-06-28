@@ -198,11 +198,7 @@
                                                     <th>Competencia</th>
                                                     <th>Rango inicial</th><!-- comment -->
                                                     <th>Rango final</th><!-- comment -->
-                                                    <th>Predominancia del Resultado</th><!-- comment -->
-                                                    <th>Resultado Descriptivo</th><!-- comment -->
-                                                    <th>Comportamiento descriptivo</th><!-- comment -->
-                                                    <th>Recomendación</th>
-                                                    <th>Recomendaciones adicionales acumuladas</th>
+                                                    <th>Recomendacion acumulada</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -262,7 +258,7 @@ $(document).ready(function () {
            type: 'get',
            dataType: 'json',
            success: function(response){
-
+console.log(response);
              var len = 0;
              if(response['data'] != null){
                len = response['data'].length;

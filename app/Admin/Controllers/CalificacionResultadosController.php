@@ -37,10 +37,10 @@ class CalificacionResultadosController extends Controller
                 $tipo_puntuacion = "Por niveles esperados logrados";
             }
             if($value['aplicar_rr_no_ni'] == "on"){
-                $aplicar_rr_no_ni = "Aplicar recomendaciones por resultados de nivel obtenido";
+                $aplicar_rr_no_ni = "Si";
             }
             else{
-                $aplicar_rr_no_ni = "No aplicar recomendaciones por resultados de nivel obtenido";
+                $aplicar_rr_no_ni = "No";
             }
             
             $CalificacionResultados_item = array(
@@ -49,10 +49,6 @@ class CalificacionResultadosController extends Controller
             "con_comp" => $Competencia1->pluck("descripcion")->first() ? $Competencia1->pluck("descripcion")->first() : "Ninguna",
             "rango_inicial" => $value['rango_inicial'] ? $value['rango_inicial'] : "No hay dato",
             "rango_final" => $value['rango_final'] ? $value['rango_final'] : "No hay dato",
-            "predominancia_resultado" => $value['predominancia_resultado'] ? $value['predominancia_resultado'] : "No hay dato",
-            "resultado_descriptivo" => $value['resultado_descriptivo'] ? $value['resultado_descriptivo'] : "No hay dato",
-            "comportamiento_descriptivo" => $value['comportamiento_descriptivo'] ? $value['comportamiento_descriptivo'] : "No hay dato",
-            "recomendacion" => $value['recomendacion'] ? $value['recomendacion'] : "No hay dato",
             "aplicar_rr_no_ni" => $aplicar_rr_no_ni ? $aplicar_rr_no_ni : "No hay dato",
             "aciones" => '<a style="font-size: 16px;color:green;" title="Editar" href="#" onclick="detalle(this)" class="detalle-'.$value['con_puntaje'].'"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" title="Eliminar" href="#" onclick="eliminar(this)" class="eliminar-'.$value['con_puntaje'].'"><i class="fa fa-trash"></i></a> | <a href="#" onclick="pregunta(this)" class="recomendacion-'.$value['con_puntaje'].'">Crear una recomendacion</a>');
         array_push($CalificacionResultados_arr, $CalificacionResultados_item);
@@ -73,13 +69,11 @@ class CalificacionResultadosController extends Controller
     // Fetch records
     public function getCompetencias($con_tipo=0){
 
-        // Fetch Employees by Departmentid
-        $competenciasData['data'] = Competencias::orderby("descripcion","asc")
-                    ->select('con_comp','descripcion')
-                    ->where('con_tipo',$con_tipo)
-                    ->get();
-  
-        return response()->json($competenciasData);
+
+      $resultados = Competencias::where('con_tipo', $con_tipo)->get();
+
+      $competenciasData['data'] = $resultados;
+      return response()->json($competenciasData);
      
     }
    

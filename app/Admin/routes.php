@@ -63,6 +63,7 @@ Route::group([
     Route::get('empresaspuestoscompetencias/{id}', 'EmpresasPuestosCompetenciasController@index')->name('empresaspuestoscompetencias.index');
     Route::delete('empresaspuestoscompetencias/delete/{id}', 'EmpresasPuestosCompetenciasController@delete')->name('empresaspuestoscompetencias.delete');
     Route::post('empresaspuestoscompetencias/{id}', 'EmpresasPuestosCompetenciasController@store')->name('empresaspuestoscompetencias.store');
+    Route::get('empresaspuestoscompetencias/getDetalles/', 'EmpresasPuestosCompetenciasController@getDetalles');
     
      //Empresas Niveles
     Route::get('empresasniveles', 'EmpresasNivelesController@index')->name('empresasniveles.index');
@@ -75,6 +76,12 @@ Route::group([
     Route::delete('empresa_pruebas/delete/{id}', 'EmpresaPruebasController@delete')->name('empresa_pruebas.delete');
     Route::post('empresa_pruebas', 'EmpresaPruebasController@store')->name('empresa_pruebas.store');
 
+    //Empresas pruebas detalle
+    Route::get('empresa_pruebas_detalle/{id}', 'EmpresaPruebasDetalleController@index')->name('empresa_pruebas_detalle.index');
+    
+    Route::delete('empresa_pruebas_detalle/delete/{id}', 'EmpresaPruebasDetalleController@delete')->name('empresa_pruebas_detalle.delete');
+    Route::post('empresa_pruebas_detalle/{id}', 'EmpresaPruebasDetalleController@store')->name('empresa_pruebas_detalle.store');
+
     //Empresas pruebas base
     Route::get('empresas_pruebas_base', 'EmpresasPruebasBaseController@index')->name('empresas_pruebas_base.index');
     
@@ -86,6 +93,12 @@ Route::group([
     
     Route::delete('emp_pru_base_detalle/delete/{id}', 'EmpresasPruebasBaseDetalleController@delete')->name('emp_pru_base_detalle.delete');
     Route::post('emp_pru_base_detalle/{id}', 'EmpresasPruebasBaseDetalleController@store')->name('emp_pru_base_detalle.store');
+
+    //Personas pruebas
+    Route::get('personas_pruebas/{id}/{per}', 'PersonasPruebasController@index')->name('personas_pruebas.index');
+    
+    Route::delete('personas_pruebas/delete/{id}', 'PersonaPruebasController@delete')->name('persona_pruebas.delete');
+    Route::post('persona_pruebas', 'PersonaPruebasController@store')->name('persona_pruebas.store');
 
     
      //Empresas tipos

@@ -9,7 +9,5 @@ class EmpresaPruebas extends Model
 {
     use HasFactory;
     protected $hidden = ['numsec_prueba'];
-    protected $table = 'empresa_pruebas';
-    
-    protected $fillable = ['descripcion', 'fecha_creacion', 'con_emp', 'con_pue', 'fecha_inicio', 'fecha_limite', 'tiempo_limite', 'link_prueba', 'created_at', 'updated_at'];
+    protected $fillable = ['con_emp', 'con_pue', 'con_comp', 'descripcion', 'fecha_creacion', 'fecha_limite', 'tiempo_limite', 'link_prueba', 'created_at', 'updated_at'];
 }

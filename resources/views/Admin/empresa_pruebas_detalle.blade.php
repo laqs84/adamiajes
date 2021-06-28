@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Puestos y Competencias de las Empresas</title>
+        <title>{{$titulo}}</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -48,7 +48,7 @@
                 <div id="app">
                     <section class="content-header">
                         <h1>
-                            Puestos y Competencias de las Empresas
+                            {{$titulo}}
                             <small>Mantemiento</small>
                         </h1>
                     </section>
@@ -68,7 +68,7 @@
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
-                                    <form id="form-creacion" action="empresaspuestoscompetencias" method="post" class="form-horizontal" accept-charset="UTF-8" pjax-container="">
+                                    <form id="form-creacion" action="empresa_pruebas_detalle" method="post" class="form-horizontal" accept-charset="UTF-8" pjax-container="">
                                         @csrf <!-- {{ csrf_field() }} -->
                                         <div class="box-body">
 
@@ -85,49 +85,24 @@
                                                                 <option value="{{$item->con_emp}}">{{$item->descripcion}}</option>
                                                                 @endforeach
                                                             </select>
-
+                                                            <input type="hidden" id="numsec_prueba" name="numsec_prueba" value="{{$numsec_prueba}}">
+                                                            <input type="hidden" id="con_detpru" name="con_detpru" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group  ">
 
-                                                        <label for="con_pue" class="col-sm-2  control-label">Puestos</label>
+                                                        <label for="con_test" class="col-sm-2  control-label">Test</label>
 
                                                         <div class="col-sm-8">
-                                                            <select class="form-control" style="width: 100%;" id="con_pue" name="con_pue"  tabindex="-1" aria-hidden="true">
-                                                                @foreach($puestos as $item)
-                                                                <option value="{{$item->con_pue}}">{{$item->descripcion}}</option>
+                                                            <select class="form-control" style="width: 100%;" id="con_test" name="con_test"  tabindex="-1" aria-hidden="true">
+                                                                @foreach($test as $item)
+                                                                <option value="{{$item->con_test}}">{{$item->descripcion}}</option>
                                                                 @endforeach
                                                             </select>
 
                                                         </div>
                                                     </div>
-                                                    <div class="form-group  ">
 
-                                                        <label for="con_comp" class="col-sm-2  control-label">Competencias</label>
-
-                                                        <div class="col-sm-8">
-                                                            <select class="form-control" style="width: 100%;" id="con_comp" name="con_comp"  tabindex="-1" aria-hidden="true">
-                                                                @foreach($competencias as $item)
-                                                                <option value="{{$item->con_comp}}">{{$item->descripcion}}</option>
-                                                                @endforeach
-                                                            </select>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group  ">
-
-                                                        <label for="con_nivdom" class="col-sm-2  control-label">Nivel esperado</label>
-
-                                                        <div class="col-sm-8">
-                                                            <select class="form-control" style="width: 100%;" id="con_nivdom" name="con_nivdom"  tabindex="-1" aria-hidden="true">
-                                                                @foreach($competenciasNiveles as $item)
-                                                                <option value="{{$item->con_nivdom}}">{{$item->descripcion}}</option>
-                                                                @endforeach
-                                                            </select>
-
-                                                        </div>
-                                                        <button onclick="nivdom()" type="button"><i class="fa fa-search"></i></button>
-                                                    </div>
 
                                                 </div>
                                             </div>
@@ -158,14 +133,13 @@
                                             <thead>
                                                 <tr>
                                                     <th>Empresa</th>
-                                                    <th>Puesto</th>
-                                                    <th>Competencia</th>
-                                                    <th>Nivel esperado</th>
+                                                    <th>Secuencial</th>
+                                                    <th>Test</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($empresaspuestoscompetencias as $id=>$json)
+                                                @foreach ($empresa_pruebas_detalle as $id=>$json)
                                                 <tr>
                                                     @foreach ($json as $key=>$val)
 
@@ -192,44 +166,6 @@ $(document).ready(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-      // Department Change
-      $('#con_pue').change(function(){
-
-         // Department id
-         var con_emp = $('#con_emp').val();
-         var id = $(this).val();
-
-         // Empty the dropdown
-
-
-         // AJAX request 
-         $.ajax({
-           url: 'getDetalles/'+con_emp+'/'+id,
-           type: 'get',
-           dataType: 'json',
-           success: function(response){
-console.log(response);
-             var len = 0;
-             if(response['data'] != null){
-               len = response['data'].length;
-             }
-
-             if(len > 0){
-               // Read data and create <option >
-               for(var i=0; i<len; i++){
-
-                 var con_comp = response['data'][i].con_comp;
-                 var descripcion = response['data'][i].descripcion;
-
-                 var option = "<option value='"+con_comp+"'>"+descripcion+"</option>"; 
-
-                 $("#con_comp").append(option); 
-               }
-             }
-
-           }
-        });
-      });    
     var endpoint = "localhost:8000/admin/";
     $('#competencias').DataTable(
             {
@@ -266,7 +202,7 @@ function eliminar(elemento) {
     var id = $(elemento).attr('class').match(/\d+/)[0];
     $.ajax(
             {
-                url: "/admin/empresaspuestoscompetencias/delete/" + id,
+                url: "/admin/empresa_pruebas_detalle/delete/" + id,
                 type: 'DELETE',
                 dataType: "JSON",
                 data: {
@@ -285,14 +221,9 @@ function detalle(elemento) {
     debugger;
     var id = $(elemento).attr('class').match(/\d+/)[0];
     $("#con_emp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text()+'")').prop('selected', true);
-    $("#con_pue").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(1)[0]).text()+'")').prop('selected', true);
-    $("#con_comp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(2)[0]).text()+'")').prop('selected', true);
-    $("#con_nivdom").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(3)[0]).text()+'")').prop('selected', true);
+    $("#con_test").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(2)[0]).text()+'")').prop('selected', true);
     $(".box-title, .btn-accion").text("Editar");
-    $("#con_emp").val(id);
-}
-function nivdom() {
-    document.location.href = '/admin/empresasniveles';
+    $("#con_detpru").val(id);
 }
         </script>
             </div>
