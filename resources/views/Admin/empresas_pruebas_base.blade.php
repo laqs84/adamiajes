@@ -118,9 +118,11 @@
                                                         <label for="instrucciones" class="col-sm-4  control-label">Instrucciones</label>
 
                                                         <div class="col-sm-8">
-                                                            <div id="editor">
-                                                            <textarea name="instrucciones" id="instrucciones" class="form-control instrucciones" rows="5" placeholder="Instrucciones"></textarea>
+                                                            <div id="instrucciones">
+                                                                <p></p>
                                                             </div>
+                                                            
+                                                            
                                                         </div>
                                                     </div>                                                                     
                                                     <div class="form-group  ">
