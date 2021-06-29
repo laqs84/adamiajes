@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+        <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/inline/ckeditor.js"></script>
         @endif
 
         {!! Admin::css() !!}
@@ -117,7 +118,9 @@
                                                         <label for="instrucciones" class="col-sm-4  control-label">Instrucciones</label>
 
                                                         <div class="col-sm-8">
+                                                            <div id="editor">
                                                             <textarea name="instrucciones" id="instrucciones" class="form-control instrucciones" rows="5" placeholder="Instrucciones"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>                                                                     
                                                     <div class="form-group  ">
@@ -269,8 +272,15 @@ function exc_comp(elemento) {
         <button id="totop" title="Ir Arriba" style="display: none;"><i class="fa fa-chevron-up"></i></button>
         <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/inline/ckeditor.js"></script>
 
-
+    <script>
+        InlineEditor
+            .create( document.querySelector( '#instrucciones' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 <script>
     function LA() {}
     LA.token = "{{ csrf_token() }}";
