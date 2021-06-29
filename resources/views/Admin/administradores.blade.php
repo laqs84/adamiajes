@@ -283,6 +283,42 @@ $( ".btn-pass_conf" ).click(function() {
         $('.after-submit').not(this).iCheck('uncheck');
     });
 });
+
+
+
+function eliminar(elemento) {
+                        console.log($(elemento));
+
+                        var id = $(elemento).attr('class').match(/\d+/)[0];
+                        $.ajax(
+                                {
+                                    url: "/admin/administradores/delete/" + id,
+                                    type: 'DELETE',
+                                    dataType: "JSON",
+                                    data: {
+                                        "id": id
+                                    },
+                                    success: function ()
+                                    {
+
+                                        var table = $('#admins').DataTable();
+                                        table.row($($(elemento).parent()).parents('tr')).remove().draw();
+                                    }
+                                });
+
+                    }
+                    
+                    function detalle(elemento) {
+                        var id = $(elemento).attr('class').match(/\d+/)[0];
+
+                        $("#con_emp").find('option:contains("' + $($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text() + '")').prop('selected', true);
+                        $("#username").val($($($(elemento).parent().parent())[0]).find("td").eq(1).html());
+                        $("#name").val($($($(elemento).parent().parent())[0]).find("td").eq(2).html());
+                         $("#con_emp").find('option:contains("' + $($($($(elemento).parent().parent())[0]).find("td").eq(3)[0]).text() + '")').prop('selected', true);
+                        $(".box-title, .btn-accion").text("Editar");
+                        $("#con_persona").val(id);
+                    }
+                    
                 </script>
 
 

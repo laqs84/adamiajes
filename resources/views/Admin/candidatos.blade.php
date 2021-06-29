@@ -283,7 +283,7 @@
                         var id = $(elemento).attr('class').match(/\d+/)[0];
                         $.ajax(
                                 {
-                                    url: "/admin/competencias/delete/" + id,
+                                    url: "/admin/candidatos/delete/" + id,
                                     type: 'DELETE',
                                     dataType: "JSON",
                                     data: {
@@ -292,7 +292,7 @@
                                     success: function ()
                                     {
 
-                                        var table = $('#competencias').DataTable();
+                                        var table = $('#admins').DataTable();
                                         table.row($($(elemento).parent()).parents('tr')).remove().draw();
                                     }
                                 });

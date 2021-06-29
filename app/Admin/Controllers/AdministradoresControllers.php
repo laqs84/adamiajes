@@ -113,4 +113,12 @@ class AdministradoresControllers extends Controller
         }
     }
     
+    
+    public function delete($id)
+    {
+        DB::table('admin_users')->where('id', '=', $id)->delete();
+
+        return response()->json(null, 204);
+    }
+    
 }
