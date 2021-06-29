@@ -124,4 +124,11 @@ Route::group([
     
     
     Route::get('informe', 'InformeController@index')->name('informe.index');
+    
+    
+    //Candidatos
+    Route::get('candidatos', 'CandidatosController@index')->name('candidatos.index');
+    Route::get('candidatos/{id}', 'CandidatosController@index')->name('candidatos.index');
+    Route::delete('candidatos/delete/{id}', 'CandidatosController@delete')->name('candidatos.delete');
+    Route::post('candidatos', 'CandidatosController@store')->name('candidatos.store');
 });

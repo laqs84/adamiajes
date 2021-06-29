@@ -57,7 +57,7 @@
                 <ul class="treeview-menu">
 
                     <li>
-                        <a href="">
+                        <a href="/admin/candidatos">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                             <span>Candidatos</span>
                         </a>

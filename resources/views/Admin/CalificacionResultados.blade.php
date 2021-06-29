@@ -189,7 +189,7 @@
                                         <!-- /.box-footer -->
                                     </form>
 
-                                    <div class="box-body">
+                                    <div class="box-body table-responsive">
                                         <table id="competencias" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
