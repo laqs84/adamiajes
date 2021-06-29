@@ -141,9 +141,9 @@
                                                         <label for="link_prueba" class="col-sm-4  control-label">Link Prueba</label>
 
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="link_prueba" name="link_prueba" value="https://andamiajescr.com/admin?test=" disabled>
+                                                            <input type="text" class="form-control" id="link_prueba" name="link_prueba" value="https://andamiajescr.com/admin?test=" readonly>
                                                         </div>
-                                                        <input type="hidden" class="form-control" id="numsec_prueba" name="numsec_prueba" hidden="">                                                        
+                                                        <input type="hidden" class="form-control" id="numsec_prueba" name="numsec_prueba">                                                        
                                                     </div>
                                                 </div>
                                             </div>

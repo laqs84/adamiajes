@@ -65,7 +65,7 @@ class CandidatosController extends Controller
          $update = \DB::table('personas') ->where('con_persona', $request['con_persona']) ->limit(1) ->update( [ 'con_emp' => $request['con_emp'], 'tipo_identificacion' => $request['tipo_identificacion'], 'num_identificacion' => $request['num_identificacion'], 'nombres' => $request['nombres'], 'apellido1' => $request['apellido1'], 'apellido2' => $request['apellido2'], 'email' => $request['email']]);  
        }
        else{
-         admin_toastr(trans('admin.save_succeeded'));
+         
          $competencias = Personas::create($request->all());  
        }
 
