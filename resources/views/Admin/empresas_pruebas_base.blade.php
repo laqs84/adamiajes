@@ -227,7 +227,7 @@ $(document).ready(function () {
 </script>
         <script>
 
-
+let appEditor;
 function eliminar(elemento) {
     console.log($(elemento));
 
@@ -253,7 +253,7 @@ function detalle(elemento) {
     debugger;
     var id = $(elemento).attr('class').match(/\d+/)[0];
     $("#descripcion").val($($($(elemento).parent().parent())[0]).find("td").eq(0).html());
-    $("#instrucciones").val($($($(elemento).parent().parent())[0]).find("td").eq(1).html());
+    appEditor.setData($($($(elemento).parent().parent())[0]).find("td").eq(1).html());
     $("#tipo_comp").val($($($(elemento).parent().parent())[0]).find("td").eq(2).html());
     $("#usa_allcompdis").val($($($(elemento).parent().parent())[0]).find("td").eq(3).html());
     $(".box-title, .btn-accion").text("Editar");
@@ -277,11 +277,17 @@ function exc_comp(elemento) {
         <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/inline/ckeditor.js"></script>
 
     <script>
-        InlineEditor
-            .create( document.querySelector( '#instrucciones' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+        
+
+InlineEditor
+    .create( document.querySelector( '#instrucciones' ) )
+    .then( editor => {
+        // Store it in more "global" context.
+        appEditor = editor;
+    } )
+    .catch( error => {
+        console.error( error );
+    } );
     </script>
 <script>
     function LA() {}
