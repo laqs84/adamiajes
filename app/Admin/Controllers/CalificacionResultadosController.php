@@ -36,6 +36,9 @@ class CalificacionResultadosController extends Controller
             if($value['tipo_puntuacion'] == "PNEL"){
                 $tipo_puntuacion = "Por niveles esperados logrados";
             }
+            if($value['tipo_puntuacion'] == "PES"){
+                $tipo_puntuacion = "Por escala de sinceridad";
+            }            
             if($value['aplicar_rr_no_ni'] == "on"){
                 $aplicar_rr_no_ni = "Si";
             }

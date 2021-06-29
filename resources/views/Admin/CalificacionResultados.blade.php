@@ -97,6 +97,7 @@
                                                               <option value="PC">Por Competencia</option>
                                                               <option value="PTC">Por total de competencias</option>
                                                               <option value="PNEL">Por niveles esperados logrados</option>
+                                                              <option value="PES">Por escala de sinceridad</option>                                                              
                                                             </select>
 
                                                         </div>

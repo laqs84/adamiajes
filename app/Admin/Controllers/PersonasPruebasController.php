@@ -4,6 +4,12 @@ namespace App\Admin\Controllers;
 
 Use App\Models\Empresas;
 Use App\Models\EmpresaPruebas;
+Use App\Models\EmpresaPruebasDetalle;
+Use App\Models\EmpresasPruebasBase;
+Use App\Models\EmpresasPruebasBaseDetalle;
+use App\Models\Competencias;
+
+Use App\Models\PersonasPruebas;
 Use App\Models\Puestos;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -14,16 +20,20 @@ use Illuminate\Support\Arr;
 
 class PersonasPruebasController extends Controller
 {
-    public function index($cpr=0,$cpe=0){
+    public function index($cpr=0,$cpe=0,$lastid=0){
 
-
+        $numsec_prueba = $cpr;
         $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $cpr)->get();
-        $conemp = $EmpresaPruebas[0]['con_emp'];
+        $con_emp = $EmpresaPruebas[0]['con_emp'];
         $conpue = $EmpresaPruebas[0]['con_pue'];
-        $empresas = Empresas::where('con_emp', $conemp)->get();
+        $tiempo_limite = $EmpresaPruebas[0]['tiempo_limite'] . " minutos";
+        $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $cpr)->get();
+        $empresas = Empresas::where('con_emp', $con_emp)->get();
         $empresa = $empresas[0]['descripcion'];
         $puestos = Puestos::where('con_pue', $conpue)->get();
         $puesto =  $puestos[0]['descripcion'];
+        $con_persona = $cpe;
+
 
         // $empresasp_arr = array();
         // foreach ($EmpresaPruebas as $key => $value) {
@@ -39,10 +49,144 @@ class PersonasPruebasController extends Controller
         // );
         // array_push($empresasp_arr, $empresasp_item);
         // }
-        
-        return view('admin.personas_pruebas' , ['puesto' => $puesto, 'empresa' => $empresa, '_user_'      => $this->getUserData()]);
+
+        return view('admin.personas_pruebas' , ['numsec_prueba' => $numsec_prueba, 
+                                                'puesto' => $puesto, 
+                                                'con_persona' => $con_persona, 
+                                                'tiempo_limite' => $tiempo_limite, 
+                                                'empresa' => $empresa, 
+                                                'con_test' => 0,
+                                                'con_emp' => $con_emp, 
+                                                'instrucciones' => '', 
+                                                'descripcion' => '',
+                                                'test' => 0,
+                                                '_user_' => $this->getUserData()]);
    }
-   
+   public function test($cpr=0,$cpe=0,$lastid=0){
+
+        $numsec_prueba = $cpr;
+        $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $cpr)->get();
+        $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $cpr)->get();
+        $con_emp = $EmpresaPruebas[0]['con_emp'];
+        $conpue = $EmpresaPruebas[0]['con_pue'];
+        $tiempo_limite = $EmpresaPruebas[0]['tiempo_limite'] . " minutos";
+        $empresas = Empresas::where('con_emp', $con_emp)->get();
+        $empresa = $empresas[0]['descripcion'];
+        $puestos = Puestos::where('con_pue', $conpue)->get();
+        $puesto =  $puestos[0]['descripcion'];
+        $con_persona = $cpe;
+        $pruebas_arr = array();
+        $test = 0;
+        $descripcion = "";
+        $instrucciones = "";
+        foreach ($EmpresaPruebasDetalle as $key => $value) {
+          $EmpresasPruebasBase = EmpresasPruebasBase::where('con_test', $value['con_test'])->get();
+          $test = $value['con_test'];
+          $descripcion = $EmpresasPruebasBase[0]['descripcion'];
+          $instrucciones = $EmpresasPruebasBase[0]['instrucciones'];
+          $pruebas_item = array(
+            "con_test" => $value['con_test'],
+            "descripcion" => $value['descripcion'],
+            "instrucciones" => $value['instrucciones'],
+            "con_tipo" => $value['con_tipo'],
+            "usa_allcompdis" => $value['usa_allcompdis'],
+          );
+          array_push($pruebas_arr, $pruebas_item);
+
+        }
+
+        return view('admin.personas_pruebas' , 
+          ['numsec_prueba' => $numsec_prueba,
+          'pruebas_arr' => $pruebas_arr,
+          'puesto' => $puesto, 
+          'con_persona' => $con_persona, 
+          'tiempo_limite' => $tiempo_limite, 
+          'empresa' => $empresa, 
+          'con_emp' => $con_emp, 
+          'con_test' => $test,
+          'pruebas' => $pruebas_arr,
+          'instrucciones' => $instrucciones, 
+          'descripcion' => $descripcion, 
+          '_user_' => $this->getUserData()]);    
+   }
+
+    // Fetch records
+    public function updatePrueba($numsec_prueba=0,$con_persona=0,$con_test=""){
+      var_dump($con_test);
+    }
+    // Fetch records
+    public function getNextTest($numsec_prueba=0,$con_persona=0,$con_test=""){
+
+        $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $numsec_prueba)->get();
+        $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $numsec_prueba)->get();
+        $con_emp = $EmpresaPruebas[0]['con_emp'];
+        $conpue = $EmpresaPruebas[0]['con_pue'];
+        $tiempo_limite = $EmpresaPruebas[0]['tiempo_limite'] . " minutos";
+        $empresas = Empresas::where('con_emp', $con_emp)->get();
+        $empresa = $empresas[0]['descripcion'];
+        $puestos = Puestos::where('con_pue', $conpue)->get();
+        $puesto =  $puestos[0]['descripcion'];
+        $pruebas_arr = array();
+        $test = 0;
+        $descripcion = "";
+        $instrucciones = "";
+        $str_arr = explode (",", $con_test); 
+        foreach ($EmpresaPruebasDetalle as $key => $value) {
+          $EmpresasPruebasBase = EmpresasPruebasBase::where('con_test', $value['con_test'])->get();
+          $test = $value['con_test'];
+          if (in_array($test, $str_arr)){
+            continue;
+          }
+          $descripcion = $EmpresasPruebasBase[0]['descripcion'];
+          $instrucciones = $EmpresasPruebasBase[0]['instrucciones'];
+          $pruebas_item = array(
+            "con_test" => $value['con_test'],
+            "descripcion" => $descripcion,
+            "instrucciones" => $instrucciones,
+            "con_tipo" => $EmpresasPruebasBase[0]['con_tipo'],
+            "usa_allcompdis" => $EmpresasPruebasBase[0]['usa_allcompdis'],
+          );
+          break;
+
+        }
+        if(!isset($pruebas_item)){
+          $pruebas_item = array(
+            "con_test" => 0,
+            "descripcion" => "",
+            "instrucciones" => "",
+            "con_tipo" => "",
+            "usa_allcompdis" => "",
+          );
+        }
+        $testData['data'] = $pruebas_item;
+        return response()->json($testData);  
+
+    }   
+    public function getPreguntas($numsec_prueba=0,$con_persona=0,$con_test=0){
+
+      $resultados = EmpresasPruebasBase::where('con_test', $con_test)->get();
+
+      $query = Competencias::select(
+        'competencias_preguntas.con_preg',
+        'competencias_tipos.tipo_calificacion', 
+        'competencias.con_comp', 
+        'competencias.descripcion AS competencia_desc',
+        'competencias_preguntas.descripcion AS pregunta_desc',
+        'competencias_preguntas_opciones.con_opci',
+        'competencias_preguntas_opciones.descripcion AS opcion_desc')
+       ->Join('competencias_tipos','competencias_tipos.con_tipo','=','competencias.con_tipo')      
+       ->Join('competencias_preguntas','competencias_preguntas.con_comp','=','competencias.con_comp')
+       ->Join('competencias_preguntas_opciones','competencias_preguntas_opciones.con_preg','=','competencias_preguntas.con_preg')       
+       ->where('competencias.con_tipo', '=' ,$resultados[0]['con_tipo'])
+       ->orderby('competencias.con_comp')
+       ->orderby('competencias_preguntas.con_preg')->get();
+      
+
+      $competenciasData['data'] = $query;
+      return response()->json($competenciasData);
+     
+    }
+
    protected function getUserData()
     {
         if (!$user = Admin::user()) {
@@ -54,20 +198,23 @@ class PersonasPruebasController extends Controller
    
    public function store(Request $request)
     {
-       if($request['numsec_prueba'] !== NULL){
-         $update = \DB::table('empresa_pruebas') ->where('numsec_prueba', $request['numsec_prueba']) ->limit(1) ->update( [ 'descripcion' => $request['descripcion'], 'con_pue' => $request['con_pue'], 'fecha_inicio' => $request['fecha_inicio'], 'fecha_limite' => $request['fecha_limite'], 'tiempo_limite' => $request['tiempo_limite']]);  
+       $lastid = 0;
+       if($request['numpru_per'] !== NULL){
+         $hourMin = date('H:i');
+         $today = date("d/m/Y");
+         $update = \DB::table('personas_pruebas') ->where('numsec_prueba', $request['numsec_prueba']) ->limit(1) ->update( [ 'hora_inicio' => $hourMin, 'fecha_prueba' => $today]);  
        }
        else{
-         $EmpresaPruebas= EmpresaPruebas::create($request->all());  
-         
+         $PersonasPruebas= PersonasPruebas::create($request->all());  
+         $lastid = $PersonasPruebas->id;
        }
 
-        return Redirect::to('admin/empresa_pruebas');
+       return Redirect::to('admin/personas_pruebas/test/'.$request['numsec_prueba'].'/8/'.$lastid);
     }
     
     public function delete($id)
     {
-        DB::table('empresa_pruebas')->where('numsec_prueba', '=', $id)->delete();
+        DB::table('personas_pruebas')->where('num_pruper', '=', $id)->delete();
 
         return response()->json(null, 204);
     }

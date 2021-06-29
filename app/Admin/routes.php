@@ -96,9 +96,12 @@ Route::group([
 
     //Personas pruebas
     Route::get('personas_pruebas/{id}/{per}', 'PersonasPruebasController@index')->name('personas_pruebas.index');
-    
-    Route::delete('personas_pruebas/delete/{id}', 'PersonaPruebasController@delete')->name('persona_pruebas.delete');
-    Route::post('persona_pruebas', 'PersonaPruebasController@store')->name('persona_pruebas.store');
+    Route::get('personas_pruebas/test/{id}/{per}/{lastid}', 'PersonasPruebasController@test')->name('personas_pruebas.test');  
+    Route::get('personas_pruebas/test/{id}/{per}/getPreguntas/{con_test}', 'PersonasPruebasController@getPreguntas')->name('personas_pruebas.getPreguntas');
+    Route::get('personas_pruebas/test/{id}/{per}/getNextTest/{con_test}', 'PersonasPruebasController@getNextTest')->name('personas_pruebas.getNextTest');    
+    Route::get('personas_pruebas/test/{id}/{per}/updatePrueba/{con_test}', 'PersonasPruebasController@updatePrueba')->name('personas_pruebas.updatePrueba');        
+    Route::delete('personas_pruebas/delete/{id}', 'PersonasPruebasController@delete')->name('personas_pruebas.delete');
+    Route::post('personas_pruebas/{id}/{per}', 'PersonasPruebasController@store')->name('personas_pruebas.store');
 
     
      //Empresas tipos
