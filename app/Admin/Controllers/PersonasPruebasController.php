@@ -25,14 +25,14 @@ class PersonasPruebasController extends Controller
 
         $numsec_prueba = $cpr;
         $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $cpr)->get();
-        $con_emp = $EmpresaPruebas[0]['con_emp'];
-        $conpue = $EmpresaPruebas[0]['con_pue'];
-        $tiempo_limite = $EmpresaPruebas[0]['tiempo_limite'] . " minutos";
+        $con_emp = $EmpresaPruebas->pluck("con_emp")->first();
+        $conpue = $EmpresaPruebas->pluck("con_pue")->first();
+        $tiempo_limite = $EmpresaPruebas->pluck("tiempo_limite")->first() . " minutos";
         $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $cpr)->get();
         $empresas = Empresas::where('con_emp', $con_emp)->get();
-        $empresa = $empresas[0]['descripcion'];
+        $empresa = $empresas->pluck("descripcion")->first();
         $puestos = Puestos::where('con_pue', $conpue)->get();
-        $puesto =  $puestos[0]['descripcion'];
+        $puesto =  $puestos->pluck("descripcion")->first();
         $con_persona = $cpe;
 
 
