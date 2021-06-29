@@ -222,7 +222,7 @@ $(document).ready(function () {
       keyact = 0;
 
       $('#enviacc').click(function(){
-        alert("envia");
+
         for (const key in sessionStorage) {
           console.log(`${key}: ${sessionStorage.getItem(key)}`);
           if(key.substr(0, 5)=="resp-"){
@@ -269,7 +269,7 @@ $(document).ready(function () {
                   tipo_calificacion = res2[key2];
                 }
                 if(key2=="con_comp"){                  
-                  $('#con_comp_t').text(res2[key2]);
+                  $('#con_comp_t').val(res2[key2]);
                 }
                 if(key2=="competencia_desc"){               
                   $('#competencia_t').text(res2[key2]);
@@ -328,9 +328,11 @@ for (var i=0, max=all.length; i < max; i++) {
     con_personav = document.getElementById("con_persona").value;
     con_pregv = document.getElementById("con_preg_t").value;
     con_opcv = document.getElementById(all[i].id).getAttribute("valor");
+    con_compv = document.getElementById("con_comp_t").value;
+    con_empv = document.getElementById("con_emp").value;
 
     respuesta = "resp-" + con_pregv;
-    sessionStorage.setItem(respuesta, JSON.stringify({con_test: con_testv,numsec_prueba: numsec_pruebav, con_persona: con_personav, con_preg : con_pregv, con_opc : con_opcv}));
+    sessionStorage.setItem(respuesta, JSON.stringify({con_test: con_testv,numsec_prueba: numsec_pruebav, con_persona: con_personav, con_emp : con_empv, con_comp : con_compv, con_preg : con_pregv, con_opc : con_opcv}));
 for (const key in sessionStorage) {
     console.log(`${key}: ${sessionStorage.getItem(key)}`);
 }
@@ -410,7 +412,7 @@ console.log("keyact else");
                   tipo_calificacion = res2[key2];
                 }
                 if(key2=="con_comp"){                  
-                  $('#con_comp_t').text(res2[key2]);
+                  $('#con_comp_t').val(res2[key2]);
                 }
                 if(key2=="competencia_desc"){               
                   $('#competencia_t').text(res2[key2]);

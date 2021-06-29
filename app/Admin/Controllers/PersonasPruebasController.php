@@ -10,6 +10,7 @@ Use App\Models\EmpresasPruebasBaseDetalle;
 use App\Models\Competencias;
 
 Use App\Models\PersonasPruebas;
+Use App\Models\PersonasPruebasDetalle;
 Use App\Models\Puestos;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -112,7 +113,54 @@ class PersonasPruebasController extends Controller
 
     // Fetch records
     public function updatePrueba($numsec_prueba=0,$con_persona=0,$con_test=""){
-      var_dump($con_test);
+
+      $ar = json_decode($con_test);
+      foreach ($ar as $key => $value) {
+        switch ($key) {
+          case 'numsec_prueba':
+            $numsec_prueba = $value;
+            break;
+          case 'con_persona':
+            $con_persona = $value;
+            break;
+          case 'con_emp':
+            $con_emp = $value;
+            break;
+          case 'con_comp':
+            $con_comp = $value;
+            break;            
+          case 'con_persona':
+            $con_persona = $value;
+            break;                        
+          case 'con_test':
+            $con_test = $value;
+            break;            
+          case 'con_preg':
+            $con_preg = $value;
+            break;
+          case 'con_opc':
+            $con_opci = $value;
+
+            break;
+                                        
+          default:
+            # code...
+            break;
+        }
+
+      }
+      if($con_preg>0){
+      
+        $ppd = PersonasPruebasDetalle::create([
+         'con_emp' => $con_emp,
+         'con_persona' => $con_persona,
+         'numsec_prueba' => $numsec_prueba,
+         'con_test' => $con_test,
+         'con_comp' => $con_comp,
+         'con_preg' => $con_preg,
+         'con_opci' => $con_opci,
+        ]);
+      }
     }
     // Fetch records
     public function getNextTest($numsec_prueba=0,$con_persona=0,$con_test=""){

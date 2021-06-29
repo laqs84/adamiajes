@@ -173,14 +173,6 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a href="/admin/generarpruebas">
-                            <i class="fa fa-building"></i>
-                            <span>Generar Pruebas</span>
-                        </a>
-                    </li>
-                    
-                    
                     
 
                 </ul>
