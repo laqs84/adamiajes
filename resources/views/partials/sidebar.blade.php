@@ -57,7 +57,7 @@
                 <ul class="treeview-menu">
 
                     <li>
-                        <a href="">
+                        <a href="/admin/candidatos">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                             <span>Candidatos</span>
                         </a>
@@ -173,35 +173,22 @@
                         </a>
                     </li>
 
-                    
-                    
-                    
-                    
-
-                </ul>
-            </li>
-
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-align-justify"></i>
-                    <span>Generar Pruebas</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-
                     <li>
-                        <a href="">
+                        <a href="/admin/generarpruebas">
                             <i class="fa fa-building"></i>
-                            <span></span>
+                            <span>Generar Pruebas</span>
                         </a>
                     </li>
+                    
+                    
+                    
 
                 </ul>
             </li>
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-poll"></i>
+                    <i class="fa fa-window-restore" aria-hidden="true"></i>
                     <span>Resultados</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -209,8 +196,8 @@
 
                     <li>
                         <a href="">
-                            <i class="fa fa-building"></i>
-                            <span></span>
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <span>Informes</span>
                         </a>
                     </li>
 

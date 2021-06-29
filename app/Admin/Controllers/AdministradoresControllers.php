@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Encore\Admin\Layout\Content;
 use Illuminate\Support\Facades\Hash;
 
 class AdministradoresControllers extends Controller
@@ -83,11 +84,13 @@ class AdministradoresControllers extends Controller
     }
     
     
-    public function store(Request $request)
+    public function store(Request $request, Content $content)
     {
         
         if($request['id'] !== null){
          $update = \DB::table('admin_users') ->where('id', $request['id']) ->limit(1) ->update( [ 'con_emp' => $request['con_emp'], 'username' => $request['username'],'name' => $request['name'], 'avatar' => $request['avatar']]);  
+         return $content
+            ->description($this->description['create'] ?? trans('admin.create'));
        }
        else{
         if($request["password_confirmation"] == $request["password"]){
@@ -104,6 +107,8 @@ class AdministradoresControllers extends Controller
         $rolUser->role_id = $request["rol"];
         $rolUser->user_id = $administradores->pluck("id")->last();
         $rolUser->save();
+        return $content
+            ->description($this->description['create'] ?? trans('admin.create'));
         
           /* foreach ($request["permissions"] as $key2 => $value2) {
              $permisos= RolesAdminPermisos::create('role_id',$request["rol"], 'permission_id', $value2["permissions"]);
@@ -111,6 +116,14 @@ class AdministradoresControllers extends Controller
            }*/
         
         }
+    }
+    
+    
+    public function delete($id)
+    {
+        DB::table('admin_users')->where('id', '=', $id)->delete();
+
+        return response()->json(null, 204);
     }
     
 }
