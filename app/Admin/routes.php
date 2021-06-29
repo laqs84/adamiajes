@@ -133,5 +133,5 @@ Route::group([
     Route::get('candidatos', 'CandidatosController@index')->name('candidatos.index');
     Route::get('candidatos/{id}', 'CandidatosController@index')->name('candidatos.index');
     Route::delete('candidatos/delete/{id}', 'CandidatosController@delete')->name('candidatos.delete');
-    Route::post('candidatos', 'AdministradoresControllers@store')->name('candidatos.store');
+    Route::post('candidatos', 'CandidatosController@store')->name('candidatos.store');
 });

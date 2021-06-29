@@ -240,10 +240,7 @@
 
                         }
                     })
-                            $('#crear_admin').submit(function (e) {
-                                e.preventDefault();
-                                $(this).find('div.cascade-group.hide :input').attr('disabled', true);
-                            });
+                            
                         })();
                         $.ajaxSetup({
                             headers: {
