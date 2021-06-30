@@ -266,7 +266,7 @@ $('form').submit(function(e){
 
   $("#instrucciones").val(appEditor.getData());
   $("#form").on("submit");
-  alert(appEditor.getData());  
+
     e.currentTarget.submit();
 });
 function detalle(elemento) {
