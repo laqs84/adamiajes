@@ -339,7 +339,8 @@ for (const key in sessionStorage) {
   }
 }
 if(numchecks==0){
-
+    alert("Disculpe, debe elegir una opcion para avanzar");
+    return;
 }
 
             if(finaliza==1){
