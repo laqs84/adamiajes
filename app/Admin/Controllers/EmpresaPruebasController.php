@@ -29,7 +29,7 @@ class EmpresaPruebasController extends Controller
             "fecha_inicio" => $value['fecha_inicio'] ? $value['fecha_inicio'] : "No hay dato",                       
             "fecha_limite" => $value['fecha_limite'] ? $value['fecha_limite'] : "No hay dato",            
             "tiempo_limite" => $value['tiempo_limite'] ? $value['tiempo_limite'] : "No hay dato",                                    
-            "acciones" => '<a style="font-size: 16px;color:green;" href="#" onclick="detalle(this)" class="detalle-' . $value['numsec_prueba'] . '"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" href="#" onclick="eliminar(this)" class="eliminar-' . $value['numsec_prueba'] . '"><i class="fa fa-trash"></i></a> | <a href="#" onclick="agrega_test(this)" class="comp-' . $value['numsec_prueba'] . '">Agregar Test</a>'
+            "acciones" => '<a style="font-size: 16px;color:green;" href="#" onclick="detalle(this)" class="detalle-' . $value['numsec_prueba'] . '"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" href="#" onclick="eliminar(this)" class="eliminar-' . $value['numsec_prueba'] . '"><i class="fa fa-trash"></i></a> | <a href="#" onclick="agrega_test(this)" class="comp-' . $value['numsec_prueba'] . '">Agregar Test</a> <a href="#" onclick="agrega_candidato(this)" class="comp-' . $value['numsec_prueba'] . '">Agregar candidato</a>'
         );
         array_push($empresasp_arr, $empresasp_item);
         }
@@ -48,6 +48,7 @@ class EmpresaPruebasController extends Controller
    
    public function store(Request $request)
     {
+      $request->input('p_mdesc');
        if($request['numsec_prueba'] !== NULL){
          $update = \DB::table('empresa_pruebas') ->where('numsec_prueba', $request['numsec_prueba']) ->limit(1) ->update( [ 'descripcion' => $request['descripcion'], 'con_pue' => $request['con_pue'], 'fecha_inicio' => $request['fecha_inicio'], 'fecha_limite' => $request['fecha_limite'], 'tiempo_limite' => $request['tiempo_limite']]);  
        }

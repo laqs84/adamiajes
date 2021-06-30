@@ -213,21 +213,45 @@ class PersonasPruebasController extends Controller
     public function getPreguntas($numsec_prueba=0,$con_persona=0,$con_test=0){
 
       $resultados = EmpresasPruebasBase::where('con_test', $con_test)->get();
+      if($resultados[0]['con_tipo']==2){
+        $empresaPruebas = EmpresaPruebas::where('numsec_prueba', $numsec_prueba)->get();
+        $con_pue = intval($empresaPruebas[0]['con_pue']);
+        $query = Competencias::select(
+            'competencias_preguntas.con_preg',
+            'competencias_tipos.tipo_calificacion', 
+            'competencias.con_comp', 
+            'competencias.descripcion AS competencia_desc',
+            'competencias_preguntas.descripcion AS pregunta_desc',
+            'competencias_preguntas_opciones.con_opci',
+            'competencias_preguntas_opciones.descripcion AS opcion_desc')
+           ->join('competencias_tipos','competencias_tipos.con_tipo','=','competencias.con_tipo')  
+           ->join("empresas_puestos_competencias",function($join) use($con_pue){
 
-      $query = Competencias::select(
-        'competencias_preguntas.con_preg',
-        'competencias_tipos.tipo_calificacion', 
-        'competencias.con_comp', 
-        'competencias.descripcion AS competencia_desc',
-        'competencias_preguntas.descripcion AS pregunta_desc',
-        'competencias_preguntas_opciones.con_opci',
-        'competencias_preguntas_opciones.descripcion AS opcion_desc')
-       ->Join('competencias_tipos','competencias_tipos.con_tipo','=','competencias.con_tipo')      
-       ->Join('competencias_preguntas','competencias_preguntas.con_comp','=','competencias.con_comp')
-       ->Join('competencias_preguntas_opciones','competencias_preguntas_opciones.con_preg','=','competencias_preguntas.con_preg')       
-       ->where('competencias.con_tipo', '=' ,$resultados[0]['con_tipo'])
-       ->orderby('competencias.con_comp')
-       ->orderby('competencias_preguntas.con_preg')->get();
+            $join->on("empresas_puestos_competencias.con_comp","=",'competencias.con_comp')
+            ->where("empresas_puestos_competencias.con_pue",$con_pue); })
+           ->join('competencias_preguntas','competencias_preguntas.con_comp','=','competencias.con_comp')
+           ->join('competencias_preguntas_opciones','competencias_preguntas_opciones.con_preg','=','competencias_preguntas.con_preg')       
+           ->where('competencias.con_tipo', '=' ,$resultados[0]['con_tipo'])
+           ->orderby('competencias.con_comp')
+           ->orderby('competencias_preguntas.con_preg')->get(); 
+      }
+      else{
+        $query = Competencias::select(
+          'competencias_preguntas.con_preg',
+          'competencias_tipos.tipo_calificacion', 
+          'competencias.con_comp', 
+          'competencias.descripcion AS competencia_desc',
+          'competencias_preguntas.descripcion AS pregunta_desc',
+          'competencias_preguntas_opciones.con_opci',
+          'competencias_preguntas_opciones.descripcion AS opcion_desc')
+         ->Join('competencias_tipos','competencias_tipos.con_tipo','=','competencias.con_tipo')      
+         ->Join('competencias_preguntas','competencias_preguntas.con_comp','=','competencias.con_comp')
+         ->Join('competencias_preguntas_opciones','competencias_preguntas_opciones.con_preg','=','competencias_preguntas.con_preg')       
+         ->where('competencias.con_tipo', '=' ,$resultados[0]['con_tipo'])
+         ->orderby('competencias.con_comp')
+         ->orderby('competencias_preguntas.con_preg')->get();        
+      }
+
       
 
       $competenciasData['data'] = $query;
