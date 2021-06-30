@@ -55,6 +55,8 @@ class EmpresasPruebasBaseController extends Controller
    
    public function store(Request $request)
     {
+      var_dump("hola mundo");
+      var_dump($request['instrucciones']);
        if($request['con_test'] !== NULL){
          $update = \DB::table('empresas_pruebas_base') ->where('con_test', $request['con_test']) ->limit(1) ->update( [ 'descripcion' => $request['descripcion'], 'con_tipo' => $request['con_tipo'], 'usa_allcompdis' => $request['usa_allcompdis'], 'instrucciones' => $request['instrucciones']]);  
        }

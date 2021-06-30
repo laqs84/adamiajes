@@ -15,7 +15,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
-        <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/inline/ckeditor.js"></script>
+
+        <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/standard/ckeditor.js"></script>
         @endif
 
         {!! Admin::css() !!}
@@ -115,14 +116,17 @@
                                                     </div>
                                                     <div class="form-group  ">
 
-                                                        <label for="instrucciones" class="col-sm-4  control-label">Instrucciones</label>
+                                                        <label for="instrucciones2" class="col-sm-4  control-label">Instrucciones</label>
 
                                                         <div class="col-sm-8">
-                                                            <div id="instrucciones">
+                                                            <div id="instrucciones2">
                                                                 <p></p>
                                                             </div>
-                                                            
-                                                            
+                                                            <textarea class="form-control instrucciones" id="instrucciones" name="instrucciones" hidden="">
+                                                                
+                                                            </textarea>
+                                                         
+
                                                         </div>
                                                     </div>                                                                     
                                                     <div class="form-group  ">
@@ -193,6 +197,8 @@
                 </div>
  <script>
 $(document).ready(function () {
+    var x = document.getElementById("instrucciones");
+    x.style.display = "none";
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -226,6 +232,8 @@ $(document).ready(function () {
 });
 </script>
         <script>
+const form = document.getElementById('form-creacion');
+
 
 let appEditor;
 function eliminar(elemento) {
@@ -249,6 +257,18 @@ function eliminar(elemento) {
             });
 
 }
+
+
+
+$('form').submit(function(e){
+    // Stop the form submitting
+    e.preventDefault();
+
+  $("#instrucciones").val(appEditor.getData());
+  $("#form").on("submit");
+  alert(appEditor.getData());  
+    e.currentTarget.submit();
+});
 function detalle(elemento) {
     debugger;
     var id = $(elemento).attr('class').match(/\d+/)[0];
@@ -258,6 +278,7 @@ function detalle(elemento) {
     $("#usa_allcompdis").val($($($(elemento).parent().parent())[0]).find("td").eq(3).html());
     $(".box-title, .btn-accion").text("Editar");
     $("#con_test").val(id);
+
 }
 function exc_comp(elemento) {
     var id = $(elemento).attr('class').match(/\d+/)[0];
@@ -274,20 +295,27 @@ function exc_comp(elemento) {
         <button id="totop" title="Ir Arriba" style="display: none;"><i class="fa fa-chevron-up"></i></button>
         <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/inline/ckeditor.js"></script>
+    
+         <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
 
     <script>
-        
+    
 
-InlineEditor
-    .create( document.querySelector( '#instrucciones' ) )
+ClassicEditor
+    .create( document.querySelector( '#instrucciones2' ) )
     .then( editor => {
         // Store it in more "global" context.
         appEditor = editor;
+    editor.model.document.on('change:data', (evt, data) => {
+        $("#instrucciones").val(editor.getData());
+    });
+
     } )
     .catch( error => {
         console.error( error );
     } );
+
+
     </script>
 <script>
     function LA() {}

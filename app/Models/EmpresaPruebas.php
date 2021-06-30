@@ -19,7 +19,7 @@ public static function boot()
 
     static::saving(function ($model) {
     	$dt = date("Y-m-d H:i:s");
-         
+
         $model->fecha_creacion = $dt ;
     });
 }    

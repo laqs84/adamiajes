@@ -149,9 +149,9 @@
     <h3 >
     Instrucciones
     </h3>
-   <h4 id="desc_instruc">
-    {{$instrucciones}}
-   </h4>
+   <div class="content" id="desc_instruc">
+    {!! $instrucciones !!}
+   </div>
 @endif  
   
 </div>
@@ -363,6 +363,7 @@ if(numchecks==0){
 
               if(response.data.instrucciones!=""){
                 h = document.getElementById("desc_instruc");
+
                 h.innerHTML = response.data.instrucciones;
                 $("#instrucciones").show();
               }              
