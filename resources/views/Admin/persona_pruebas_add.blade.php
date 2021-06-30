@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Pruebas de Empresa</title>
+        <title>{{$titulo}}</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -43,13 +43,12 @@
 
 
 
-
             <div class="content-wrapper" id="pjax-container">
                 {!! Admin::style() !!}
                 <div id="app">
                     <section class="content-header">
                         <h1>
-                            Pruebas de Empresa
+                            {{$titulo}}
                             <small>Mantemiento</small>
                         </h1>
                     </section>
@@ -69,8 +68,8 @@
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
-                                    <form id="form-creacion" action="empresa_pruebas" method="post" class="form-horizontal" accept-charset="UTF-8" pjax-container="">
-                                        {{ csrf_field() }}
+                                    <form id="form-creacion" action="persona_pruebas_add" method="post" class="form-horizontal" accept-charset="UTF-8" pjax-container="">
+                                        @csrf <!-- {{ csrf_field() }} -->
                                         <div class="box-body">
 
                                             <div class="fields-group">
@@ -78,73 +77,20 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group  ">
 
-                                                        <label for="comp_emp" class="col-sm-4  control-label">Empresa</label>
+                                                        <label for="con_persona" class="col-sm-2  control-label">Candidatos</label>
 
                                                         <div class="col-sm-8">
-                                                            <select class="form-control" style="width: 100%;" id="con_emp" name="con_emp"  tabindex="-1" aria-hidden="true">
-                                                                @foreach($empresas as $item)
-                                                                <option value="{{$item->con_emp}}">{{$item->descripcion}}</option>
-                                                                @endforeach
+                                                            <select class="form-control" style="width: 100%;" id="con_persona" name="con_persona"  tabindex="-1" aria-hidden="true">
+ 
                                                             </select>
-
+                                                            <input type="hidden" id="numsec_prueba" name="numsec_prueba" value="{{$numsec_prueba}}">
+                                                            <input type="hidden" id="con_emp" name="con_emp" value="{{$con_emp}}">
+                                                                                                               
                                                         </div>
                                                     </div>
-                                                    <div class="form-group  ">
 
-                                                        <label for="tipo_comp" class="col-sm-4  control-label">Puesto</label>
 
-                                                        <div class="col-sm-8">
-                                                            <select class="form-control" style="width: 100%;" id="con_pue" name="con_pue"  tabindex="-1" aria-hidden="true">
-                                                                @foreach($puestos as $item)
-                                                                <option value="{{$item->con_pue}}">{{$item->descripcion}}</option>
-                                                                @endforeach
-                                                            </select>
 
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group  ">
-
-                                                        <label for="descripcion" class="col-sm-4  control-label">Descripción/Nombre</label>
-
-                                                        <div class="col-sm-8">
-                                                            <textarea name="descripcion" id="descripcion" class="form-control descripcion" rows="5" placeholder="Descripción"></textarea>
-                                                            <input type="hidden" id="con_test" name="con_test">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group  ">
-
-                                                        <label for="fecha_inicio" class="col-sm-4  control-label">Valido desde</label>
-
-                                                        <div class="col-sm-8">
-                                                            <input name="fecha_inicio" id="fecha_inicio" type="date" class="form-control fecha_inicio"  placeholder="Fecha de inicio"></textarea>
-                                                        </div>
-                                                    </div>                                                                     
-                                                    <div class="form-group  ">
-
-                                                        <label for="fecha_limite" class="col-sm-4  control-label">Valido hasta</label>
-
-                                                        <div class="col-sm-8">
-                                                            <input type="date" class="form-control" id="fecha_limite" name="fecha_limite" >
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group  ">
-
-                                                        <label for="tiempo_limite" class="col-sm-4  control-label">Tiempo Límite</label>
-
-                                                        <div class="col-sm-8">
-                                                            <input type="number" class="form-control" id="tiempo_limite" name="tiempo_limite" >
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group  ">
-
-                                                        <label for="link_prueba" class="col-sm-4  control-label">Link Prueba</label>
-
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="link_prueba" name="link_prueba" value="https://andamiajescr.com/admin?test=" readonly>
-                                                        </div>
-                                                        <input type="hidden" class="form-control" id="numsec_prueba" name="numsec_prueba">                                                        
-                                                    </div>
                                                 </div>
                                             </div>
 
@@ -173,16 +119,14 @@
                                         <table id="competencias" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Puesto</th>
-                                                    <th>Válido desde</th>
-                                                    <th>Válido hasta</th>
-                                                    <th>Tiempo Límite</th>
+                                                    <th>Link</th>
+                                                    <th>Secuencial</th>
+                                                    <th>Persona</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($empresa_pruebas as $id=>$json)
+                                                @foreach ($persona_pruebas as $id=>$json)
                                                 <tr>
                                                     @foreach ($json as $key=>$val)
 
@@ -209,6 +153,44 @@ $(document).ready(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    $("#con_persona").select2({
+      placeholder: 'Seleccione una persona',     
+      ajax: {
+           url: 'getPersonas',
+           type: 'post',
+           dataType: 'json',
+        data: function(params){
+             return {
+              numsec_prueba : document.getElementById("numsec_prueba").value,
+              search: params.term // search term
+            };
+
+console.log(query);
+      // Query parameters will be ?search=[term]&type=public
+
+        },
+
+        processResults: function(data) {
+            console.log(data);            
+          return {
+              results:data              
+          };  
+        },
+        cache : true,
+        success    : function (data) {
+          console.log( data );
+
+          
+        },
+        error    : function (data) {
+          console.log( data );
+
+          
+        }        
+    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+      }      
+    }   
+            );        
     var endpoint = "localhost:8000/admin/";
     $('#competencias').DataTable(
             {
@@ -236,7 +218,7 @@ $(document).ready(function () {
             });
 });
 </script>
-        <script>
+<script>
 
 
 function eliminar(elemento) {
@@ -245,7 +227,7 @@ function eliminar(elemento) {
     var id = $(elemento).attr('class').match(/\d+/)[0];
     $.ajax(
             {
-                url: "/admin/empresa_pruebas/delete/" + id,
+                url: "/admin/persona_pruebas_add/delete/" + id,
                 type: 'DELETE',
                 dataType: "JSON",
                 data: {
@@ -263,25 +245,10 @@ function eliminar(elemento) {
 function detalle(elemento) {
     debugger;
     var id = $(elemento).attr('class').match(/\d+/)[0];
-
-    $("#descripcion").val($($($(elemento).parent().parent())[0]).find("td").eq(0).html());
- 
-    $("#con_pue").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(1)[0]).text()+'")').prop('selected', true);    
-    $("#fecha_inicio").val($($($(elemento).parent().parent())[0]).find("td").eq(2).html());
-    $("#fecha_limite").val($($($(elemento).parent().parent())[0]).find("td").eq(3).html());    
-    $("#tiempo_limite").val($($($(elemento).parent().parent())[0]).find("td").eq(4).html());    
+    $("#con_emp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text()+'")').prop('selected', true);
+    $("#con_test").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(2)[0]).text()+'")').prop('selected', true);
     $(".box-title, .btn-accion").text("Editar");
-    $("#numsec_prueba").val(id);
-}
-
-function agrega_candidato(elemento) {
-    var id = $(elemento).attr('class').match(/\d+/)[0];
-    document.location.href = '/admin/persona_pruebas_add/'+id;
-}
-
-function agrega_test(elemento) {
-    var id = $(elemento).attr('class').match(/\d+/)[0];
-    document.location.href = '/admin/empresa_pruebas_detalle/'+id;
+    $("#con_detpru").val(id);
 }
         </script>
             </div>
@@ -294,8 +261,7 @@ function agrega_test(elemento) {
         <button id="totop" title="Ir Arriba" style="display: none;"><i class="fa fa-chevron-up"></i></button>
         <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
-
-
+        
 <script>
     function LA() {}
     LA.token = "{{ csrf_token() }}";
@@ -306,5 +272,6 @@ function agrega_test(elemento) {
 
 
 {!! Admin::js() !!}
+
     </body>
 </html>

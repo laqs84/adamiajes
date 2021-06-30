@@ -12,6 +12,7 @@ use App\Models\Competencias;
 Use App\Models\PersonasPruebas;
 Use App\Models\PersonasPruebasDetalle;
 Use App\Models\Puestos;
+Use App\Models\Personas;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,19 +22,25 @@ use Illuminate\Support\Arr;
 
 class PersonasPruebasController extends Controller
 {
-    public function index($cpr=0,$cpe=0,$lastid=0){
+    public function index($random_pru=""){
 
-        $numsec_prueba = $cpr;
-        $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $cpr)->get();
+        $PersonasPruebas = PersonasPruebas::where('random_pru', $random_pru)->get();
+        $numsec_prueba = $PersonasPruebas->pluck("numsec_prueba")->first();
+        $con_persona = $PersonasPruebas->pluck("con_persona")->first();
+        $Personas = Personas::where('con_persona', $con_persona)->get();
+        $nom = $Personas->pluck("nombres")->first();
+        $ap1 = $Personas->pluck("apellido1")->first();
+        $nombre = $nom . " " . $ap1;
+        $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $numsec_prueba)->get();
         $con_emp = $EmpresaPruebas->pluck("con_emp")->first();
         $conpue = $EmpresaPruebas->pluck("con_pue")->first();
         $tiempo_limite = $EmpresaPruebas->pluck("tiempo_limite")->first() . " minutos";
-        $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $cpr)->get();
+        $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $numsec_prueba)->get();
         $empresas = Empresas::where('con_emp', $con_emp)->get();
         $empresa = $empresas->pluck("descripcion")->first();
         $puestos = Puestos::where('con_pue', $conpue)->get();
         $puesto =  $puestos->pluck("descripcion")->first();
-        $con_persona = $cpe;
+        
 
 
         // $empresasp_arr = array();
@@ -58,24 +65,34 @@ class PersonasPruebasController extends Controller
                                                 'empresa' => $empresa, 
                                                 'con_test' => 0,
                                                 'con_emp' => $con_emp, 
+                                                'nombre' => $nombre, 
                                                 'instrucciones' => '', 
                                                 'descripcion' => '',
+                                                'random_pru' => $random_pru,
                                                 'test' => 0,
                                                 '_user_' => $this->getUserData()]);
    }
-   public function test($cpr=0,$cpe=0,$lastid=0){
+   public function test($random_pru=""){
 
-        $numsec_prueba = $cpr;
-        $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $cpr)->get();
-        $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $cpr)->get();
+        $PersonasPruebas = PersonasPruebas::where('random_pru', $random_pru)->get();
+        $numsec_prueba = $PersonasPruebas->pluck("numsec_prueba")->first();
+     
+        $con_persona = $PersonasPruebas->pluck("con_persona")->first();
+        $Personas = Personas::where('con_persona', $con_persona)->get();
+        $nom = $Personas->pluck("nombres")->first();
+        $ap1 = $Personas->pluck("apellido1")->first();
+        $nombre = $nom . " " . $ap1;     
+        $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $numsec_prueba)->get();
+        $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $numsec_prueba)->get();
         $con_emp = $EmpresaPruebas[0]['con_emp'];
+       
         $conpue = $EmpresaPruebas[0]['con_pue'];
         $tiempo_limite = $EmpresaPruebas[0]['tiempo_limite'] . " minutos";
         $empresas = Empresas::where('con_emp', $con_emp)->get();
         $empresa = $empresas[0]['descripcion'];
         $puestos = Puestos::where('con_pue', $conpue)->get();
         $puesto =  $puestos[0]['descripcion'];
-        $con_persona = $cpe;
+
         $pruebas_arr = array();
         $test = 0;
         $descripcion = "";
@@ -84,6 +101,7 @@ class PersonasPruebasController extends Controller
           $EmpresasPruebasBase = EmpresasPruebasBase::where('con_test', $value['con_test'])->get();
           $test = $value['con_test'];
           $descripcion = $EmpresasPruebasBase[0]['descripcion'];
+      
           $instrucciones = $EmpresasPruebasBase[0]['instrucciones'];
           $pruebas_item = array(
             "con_test" => $value['con_test'],
@@ -99,10 +117,12 @@ class PersonasPruebasController extends Controller
         return view('admin.personas_pruebas' , 
           ['numsec_prueba' => $numsec_prueba,
           'pruebas_arr' => $pruebas_arr,
+          'random_pru' => $random_pru,
           'puesto' => $puesto, 
           'con_persona' => $con_persona, 
           'tiempo_limite' => $tiempo_limite, 
           'empresa' => $empresa, 
+          'nombre' => $nombre, 
           'con_emp' => $con_emp, 
           'con_test' => $test,
           'pruebas' => $pruebas_arr,
@@ -112,7 +132,7 @@ class PersonasPruebasController extends Controller
    }
 
     // Fetch records
-    public function updatePrueba($numsec_prueba=0,$con_persona=0,$con_test=""){
+    public function updatePrueba($con_test=""){
 
       $ar = json_decode($con_test);
       foreach ($ar as $key => $value) {
@@ -163,8 +183,10 @@ class PersonasPruebasController extends Controller
       }
     }
     // Fetch records
-    public function getNextTest($numsec_prueba=0,$con_persona=0,$con_test=""){
-
+    public function getNextTest($random_pru="",$con_test=""){
+        $PersonasPruebas = PersonasPruebas::where('random_pru', $random_pru)->get();
+        $numsec_prueba = $PersonasPruebas->pluck("numsec_prueba")->first();
+        $con_persona = $PersonasPruebas->pluck("con_persona")->first();
         $EmpresaPruebas = EmpresaPruebas::where('numsec_prueba', $numsec_prueba)->get();
         $EmpresaPruebasDetalle = EmpresaPruebasDetalle::where('numsec_prueba', $numsec_prueba)->get();
         $con_emp = $EmpresaPruebas[0]['con_emp'];
@@ -210,7 +232,7 @@ class PersonasPruebasController extends Controller
         return response()->json($testData);  
 
     }   
-    public function getPreguntas($numsec_prueba=0,$con_persona=0,$con_test=0){
+    public function getPreguntas($con_test=0,$numsec_prueba=0){
 
       $resultados = EmpresasPruebasBase::where('con_test', $con_test)->get();
       if($resultados[0]['con_tipo']==2){
@@ -270,18 +292,23 @@ class PersonasPruebasController extends Controller
    
    public function store(Request $request)
     {
+
+
        $lastid = 0;
-       if($request['numpru_per'] !== NULL){
+       $random_pru = "";
+       if($request['random_pru'] !== NULL){
+      
+         $random_pru = $request['random_pru'];
          $hourMin = date('H:i');
-         $today = date("d/m/Y");
-         $update = \DB::table('personas_pruebas') ->where('numsec_prueba', $request['numsec_prueba']) ->limit(1) ->update( [ 'hora_inicio' => $hourMin, 'fecha_prueba' => $today]);  
+         $today = date("Y-m-d");
+         $update = \DB::table('personas_pruebas') ->where('numsec_prueba', $request['numsec_prueba']) ->limit(1) ->update( [ 'hora_inicio' => $hourMin, 'fecha_prueba' => $today, 'iniciada' => 1]);  
        }
        else{
          $PersonasPruebas= PersonasPruebas::create($request->all());  
          $lastid = $PersonasPruebas->id;
        }
 
-       return Redirect::to('admin/personas_pruebas/test/'.$request['numsec_prueba'].'/8/'.$lastid);
+       return Redirect::to('admin/personas_pruebas/test/'.$random_pru);
     }
     
     public function delete($id)
