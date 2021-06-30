@@ -1,6 +1,6 @@
 <!-- Main Header -->
 <header class="main-header">
-
+    @if(Admin::user())
     <!-- Logo -->
     <a href="{{ admin_url('/') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -8,6 +8,7 @@
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><img style="width: 70px;" src="{{URL::asset('img/logo.jpeg')}}" /></span>
     </a>
+
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -61,4 +62,5 @@
             </ul>
         </div>
     </nav>
+@endif
 </header>

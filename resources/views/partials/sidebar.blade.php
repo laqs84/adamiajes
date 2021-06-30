@@ -1,3 +1,4 @@
+@if(Admin::user())
 <aside class="main-sidebar">
 
     <!-- sidebar: style can be found in sidebar.less -->
@@ -13,7 +14,6 @@
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('admin.online') }}</a>
             </div>
-        </div>
 
         @if(config('admin.enable_menu_search'))
         <!-- search form (Optional) -->
@@ -202,3 +202,5 @@
     </section>
     <!-- /.sidebar -->
 </aside>
+
+@endif

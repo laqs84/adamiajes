@@ -3,6 +3,7 @@
 use Illuminate\Routing\Router;
 
 Admin::routes();
+Auth::guest();
 
 Route::group([
     'prefix'        => config('admin.route.prefix'),
@@ -94,14 +95,6 @@ Route::group([
     Route::delete('emp_pru_base_detalle/delete/{id}', 'EmpresasPruebasBaseDetalleController@delete')->name('emp_pru_base_detalle.delete');
     Route::post('emp_pru_base_detalle/{id}', 'EmpresasPruebasBaseDetalleController@store')->name('emp_pru_base_detalle.store');
 
-    //Personas pruebas
-    Route::get('personas_pruebas/{id}', 'PersonasPruebasController@index')->name('personas_pruebas.index');
-    Route::get('personas_pruebas/test/{id}', 'PersonasPruebasController@test')->name('personas_pruebas.test');  
-    Route::get('personas_pruebas/test/getPreguntas/{id}/{id2}', 'PersonasPruebasController@getPreguntas')->name('personas_pruebas.getPreguntas');
-    Route::get('personas_pruebas/test/getNextTest/{id}/{con_test}', 'PersonasPruebasController@getNextTest')->name('personas_pruebas.getNextTest');    
-    Route::get('personas_pruebas/test/updatePrueba/{con_test}', 'PersonasPruebasController@updatePrueba')->name('personas_pruebas.updatePrueba');        
-    Route::delete('personas_pruebas/delete/{id}', 'PersonasPruebasController@delete')->name('personas_pruebas.delete');
-    Route::post('personas_pruebas/{id}', 'PersonasPruebasController@store')->name('personas_pruebas.store');
 
     //Persona pruebas add
     Route::get('persona_pruebas_add/{id}', 'PersonaPruebasAddController@index')->name('persona_pruebas_add.index');
@@ -145,4 +138,14 @@ Route::post('/persona_pruebas_add/getPersonas/','PersonaPruebasAddController@get
     Route::get('candidatos/{id}', 'CandidatosController@index')->name('candidatos.index');
     Route::delete('candidatos/delete/{id}', 'CandidatosController@delete')->name('candidatos.delete');
     Route::post('candidatos', 'CandidatosController@store')->name('candidatos.store');
+});
+Route::middleware(['guest'])->namespace('App\Admin\Controllers')->group(function () {
+    //Personas pruebas
+    Route::get('/admin/personas_pruebas/{id}/{per}', 'PersonasPruebasController@index')->name('personas_pruebas.index');
+    Route::get('personas_pruebas/test/{id}/{per}/{lastid}', 'PersonasPruebasController@test')->name('personas_pruebas.test');  
+    Route::get('personas_pruebas/test/{id}/{per}/getPreguntas/{con_test}', 'PersonasPruebasController@getPreguntas')->name('personas_pruebas.getPreguntas');
+    Route::get('personas_pruebas/test/{id}/{per}/getNextTest/{con_test}', 'PersonasPruebasController@getNextTest')->name('personas_pruebas.getNextTest');    
+    Route::get('personas_pruebas/test/{id}/{per}/updatePrueba/{con_test}', 'PersonasPruebasController@updatePrueba')->name('personas_pruebas.updatePrueba');        
+    Route::delete('personas_pruebas/delete/{id}', 'PersonasPruebasController@delete')->name('personas_pruebas.delete');
+    Route::post('personas_pruebas/{id}/{per}', 'PersonasPruebasController@store')->name('personas_pruebas.store');
 });
