@@ -187,7 +187,7 @@
                 <ul class="treeview-menu">
 
                     <li>
-                        <a href="">
+                        <a href="/admin/informe">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                             <span>Informes</span>
                         </a>

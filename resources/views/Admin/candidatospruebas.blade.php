@@ -75,7 +75,7 @@
                                                     <th>Empresa</th>
                                                     <th>Candidato</th>
                                                     <th>Puesto</th>
-                                                    <th>Competencia</th>
+                                                    <th>Fecha Creación</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
