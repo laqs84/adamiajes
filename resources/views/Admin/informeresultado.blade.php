@@ -12,9 +12,10 @@
 <body>
     <h4>don Andres</h4>
 <h3>
-@foreach ($data as $user)
-    { $user->nombre }}
-    
-    @endforeach
+
+{{$nombre}}
+{{$fecha}}
+
+
     </h3>
 </body>

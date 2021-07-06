@@ -64,7 +64,7 @@ class CandidatosPruebasController extends Controller {
                 "candidato" => $nombre ? $nombre : "No hay dato",
                 "puesto" => $puesto->pluck("descripcion")->first() ? $puesto->pluck("descripcion")->first() : "No hay dato",
                 "fecha_creacion" => $value["created_at"] ? $value["created_at"] : "No hay dato",
-                "acciones" => '<a style="font-size: 16px;color:green;" title="Descargar" href="#" onclick="informe('. $value['num_pruper'] .')" class="detalle-' . $value['num_pruper'] . '"><i class="fa fa-download" aria-hidden="true"></i></a> | <a style="font-size: 16px;color:green;" title="Descargar" href="#" onclick="pdf('. $value['num_pruper'] .')" class="detalle-' . $value['num_pruper'] . '"><i class="fa fa-download" aria-hidden="true"></i></a> | <a style="font-size: 16px;color:green;" title="Ver en linea" href="#" onclick="ver(this)" class="ver-' . $value['num_pruper'] . '"><i class="fa fa-chrome" aria-hidden="true"></i></a>');
+                "acciones" => '<a style="font-size: 16px;color:green;" title="Descargar" href="#" onclick="informe('. $value['num_pruper'] .')" class="detalle-' . $value['num_pruper'] . '"><i class="fa fa-download" aria-hidden="true"></i></a> | <a target="_blank" href="/admin/candidatospruebas/download/'. $value['num_pruper'] .'" style="font-size: 16px;color:green;" title="Descargar" class="detalle-' . $value['num_pruper'] . '"><i class="fa fa-download" aria-hidden="true"></i></a> | <a style="font-size: 16px;color:green;" title="Ver en linea" href="#" onclick="ver(this)" class="ver-' . $value['num_pruper'] . '"><i class="fa fa-chrome" aria-hidden="true"></i></a>');
 
             array_push($candidatos_arr, $candidatos_item);
 
@@ -136,21 +136,14 @@ public function download($id)
                      'fecha' => $fecha, 
                      'nombre' => $nombre, 
                      '_user_' => $user];
-     $pdf = PDF::loadView('admin.informeresultado', compact('data'))->output();
+     $pdf = PDF::loadView('admin.informeresultado', ['num_pruper' => $id, 'fecha' => $fecha,'puesto' => $puesto, 'nombre' => $nombre, 'empresa' => $empresa, '_user_'      => $this->getUserData()]);
 
          //$pdf = PDF::loadView('pdf.view')->output();
 
          // using Laravel helper function
-      return response($pdf, 200,
-        [
-          'Content-Type'   => 'application/pdf',
-          'Content-Length' =>  strlen($pdf),
-          'Cache-Control'  => 'private, max-age=0, must-revalidate',
-          'Pragma'         => 'public'
-        ]
-      );   
+        
 // dd($data);
-     $content = PDF::loadView('admin.informeresultado', compact('data'))->output();
+   //  $content = PDF::loadView('admin.informeresultado', compact('data'))->output();
 //dd($content)     ;
      //return $content;
      return $pdf->download('archivo.pdf');
