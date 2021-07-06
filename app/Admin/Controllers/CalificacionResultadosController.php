@@ -33,11 +33,11 @@ class CalificacionResultadosController extends Controller
             if($value['tipo_puntuacion'] == "PTC"){
                 $tipo_puntuacion = "Por total de competencias";
             } 
-            if($value['tipo_puntuacion'] == "PNEL"){
-                $tipo_puntuacion = "Por niveles esperados logrados";
-            }
             if($value['tipo_puntuacion'] == "PES"){
                 $tipo_puntuacion = "Por escala de sinceridad";
+            }
+            if($value['tipo_puntuacion'] == "PNEL"){
+                $tipo_puntuacion = "Por niveles esperados logrados";
             }            
             if($value['aplicar_rr_no_ni'] == "on"){
                 $aplicar_rr_no_ni = "Si";
@@ -50,9 +50,16 @@ class CalificacionResultadosController extends Controller
             "con_tipo" => $CompetenciasTipo->pluck("descripcion")->first() ? $CompetenciasTipo->pluck("descripcion")->first() : "No hay dato",
             "tipo_puntuacion" => $tipo_puntuacion ? $tipo_puntuacion : "No hay dato",
             "con_comp" => $Competencia1->pluck("descripcion")->first() ? $Competencia1->pluck("descripcion")->first() : "Ninguna",
-            "rango_inicial" => $value['rango_inicial'] ? $value['rango_inicial'] : "No hay dato",
-            "rango_final" => $value['rango_final'] ? $value['rango_final'] : "No hay dato",
+            "rango_inicial" => $value['rango_inicial'] ? $value['rango_inicial'] : 0,
+            "rango_final" => $value['rango_final'] ? $value['rango_final'] : 0,
+            "predominancia_resultado" => $value['predominancia_resultado'] ? $value['predominancia_resultado'] : "No hay dato",
+            "resultado_descriptivo" => $value['resultado_descriptivo'] ? $value['resultado_descriptivo'] : "No hay dato",
+            "comportamiento_descriptivo" => $value['comportamiento_descriptivo'] ? $value['comportamiento_descriptivo'] : "No hay dato",
+            "recomendacion" => $value['recomendacion'] ? $value['recomendacion'] : "No hay dato",
             "aplicar_rr_no_ni" => $aplicar_rr_no_ni ? $aplicar_rr_no_ni : "No hay dato",
+            "con_tipon" => $CompetenciasTipo->pluck("con_tipo")->first() ? $CompetenciasTipo->pluck("con_tipo")->first() : 0,
+            "tipo_puntuacionn" => $value['tipo_puntuacion'] ? $value['tipo_puntuacion'] : 0,
+            "con_compn" => $value['con_comp'] ? $value['con_comp'] : 0,            
             "aciones" => '<a style="font-size: 16px;color:green;" title="Editar" href="#" onclick="detalle(this)" class="detalle-'.$value['con_puntaje'].'"><i class="fa fa-edit"></i></a> | <a style="font-size: 16px; color:red;" title="Eliminar" href="#" onclick="eliminar(this)" class="eliminar-'.$value['con_puntaje'].'"><i class="fa fa-trash"></i></a> | <a href="#" onclick="pregunta(this)" class="recomendacion-'.$value['con_puntaje'].'">Crear una recomendacion</a>');
         array_push($CalificacionResultados_arr, $CalificacionResultados_item);
         }

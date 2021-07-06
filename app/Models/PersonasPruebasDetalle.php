@@ -11,5 +11,5 @@ class PersonasPruebasDetalle extends Model
     protected $hidden = ['con_prue_det'];
     protected $table = 'persona_pruebas_detalle';
     
-    protected $fillable = ['con_emp', 'con_persona', 'numsec_prueba', 'con_test', 'con_comp', 'con_preg', 'con_opci', 'created_at', 'updated_at'];
+    protected $fillable = ['num_pruper', 'con_emp', 'con_persona', 'numsec_prueba', 'con_test', 'con_comp', 'con_preg', 'con_opci', 'created_at', 'updated_at'];
 }

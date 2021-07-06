@@ -26,6 +26,7 @@ class PersonasPruebasController extends Controller
 
         $PersonasPruebas = PersonasPruebas::where('random_pru', $random_pru)->get();
         $numsec_prueba = $PersonasPruebas->pluck("numsec_prueba")->first();
+        $num_pruper = $PersonasPruebas->pluck("num_pruper")->first();
         $con_persona = $PersonasPruebas->pluck("con_persona")->first();
         $Personas = Personas::where('con_persona', $con_persona)->get();
         $nom = $Personas->pluck("nombres")->first();
@@ -40,6 +41,7 @@ class PersonasPruebasController extends Controller
         $empresa = $empresas->pluck("descripcion")->first();
         $puestos = Puestos::where('con_pue', $conpue)->get();
         $puesto =  $puestos->pluck("descripcion")->first();
+
         
 
 
@@ -57,8 +59,9 @@ class PersonasPruebasController extends Controller
         // );
         // array_push($empresasp_arr, $empresasp_item);
         // }
-
+ 
         return view('admin.personas_pruebas' , ['numsec_prueba' => $numsec_prueba, 
+                                                'num_pruper' => $num_pruper, 
                                                 'puesto' => $puesto, 
                                                 'con_persona' => $con_persona, 
                                                 'tiempo_limite' => $tiempo_limite, 
@@ -76,7 +79,7 @@ class PersonasPruebasController extends Controller
 
         $PersonasPruebas = PersonasPruebas::where('random_pru', $random_pru)->get();
         $numsec_prueba = $PersonasPruebas->pluck("numsec_prueba")->first();
-     
+        $num_pruper = $PersonasPruebas->pluck("num_pruper")->first();
         $con_persona = $PersonasPruebas->pluck("con_persona")->first();
         $Personas = Personas::where('con_persona', $con_persona)->get();
         $nom = $Personas->pluck("nombres")->first();
@@ -118,6 +121,7 @@ class PersonasPruebasController extends Controller
           ['numsec_prueba' => $numsec_prueba,
           'pruebas_arr' => $pruebas_arr,
           'random_pru' => $random_pru,
+          'num_pruper' => $num_pruper,
           'puesto' => $puesto, 
           'con_persona' => $con_persona, 
           'tiempo_limite' => $tiempo_limite, 
@@ -140,6 +144,9 @@ class PersonasPruebasController extends Controller
           case 'numsec_prueba':
             $numsec_prueba = $value;
             break;
+          case 'num_pruper':
+            $num_pruper = $value;
+            break;            
           case 'con_persona':
             $con_persona = $value;
             break;
@@ -175,6 +182,7 @@ class PersonasPruebasController extends Controller
          'con_emp' => $con_emp,
          'con_persona' => $con_persona,
          'numsec_prueba' => $numsec_prueba,
+         'num_pruper' => $num_pruper,
          'con_test' => $con_test,
          'con_comp' => $con_comp,
          'con_preg' => $con_preg,
@@ -293,7 +301,6 @@ class PersonasPruebasController extends Controller
    public function store(Request $request)
     {
 
-
        $lastid = 0;
        $random_pru = "";
        if($request['random_pru'] !== NULL){
@@ -308,7 +315,10 @@ class PersonasPruebasController extends Controller
          $lastid = $PersonasPruebas->id;
        }
 
-       return Redirect::to('admin/personas_pruebas/test/'.$random_pru);
+       //return view('admin.personas_pruebas' , ['random_pru' => $random_pru]); 
+       return Redirect::to(asset('admin/personas_pruebas/test/'.$random_pru));
+       //return redirect()->route('personas_pruebas/test/'.$random_pru);
+       //return redirect()->route('personas_pruebas.test', ['id' => $random_pru]);
     }
     
     public function delete($id)

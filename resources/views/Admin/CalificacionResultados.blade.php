@@ -199,7 +199,14 @@
                                                     <th>Competencia</th>
                                                     <th>Rango inicial</th><!-- comment -->
                                                     <th>Rango final</th><!-- comment -->
+                                                    <th>Predominancia</th><!-- comment -->
+                                                    <th>Descriptivo</th><!-- comment -->
+                                                    <th>Comportamiento</th><!-- comment -->
+                                                    <th>Recomendación</th><!-- comment -->
                                                     <th>Recomendacion acumulada</th>
+                                                    <th>ct1</th>
+                                                    <th>tp1</th>
+                                                    <th>cc1</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -245,6 +252,40 @@ $(document).ready(function () {
     });
 //
       // Department Change
+   $('#competencias tbody').on('click', 'tr', function () {
+
+    selected = oTable.row(this).data()[10];  
+    $("#con_tipo").val(selected);
+
+    selected = oTable.row(this).data()[11]; 
+
+    $("#tipo_puntuacion").val(selected);
+
+    selected = oTable.row(this).data()[12]; 
+    $("#con_comp").val(selected);
+    selected = oTable.row(this).data()[3]; 
+    $("#rango_inicial").val(selected);
+    selected = oTable.row(this).data()[4]; 
+    $("#rango_final").val(selected);
+    selected = oTable.row(this).data()[5]; 
+    $("#predominancia_resultado").val(selected);
+    selected = oTable.row(this).data()[6]; 
+    $("#resultado_descriptivo").val(selected);
+    selected = oTable.row(this).data()[7]; 
+    $("#comportamiento_descriptivo").val(selected);
+    selected = oTable.row(this).data()[8];
+    $("#recomendacion").val(selected);    
+    selected = oTable.row(this).data()[9];
+    if(selected == "Si"){
+        $("#aplicar_rr_no_ni").val("on");
+        $("#aplicar_rr_no_ni1").prop("checked", true);
+    }
+    else{
+        $("#aplicar_rr_no_ni").val("off");
+        $("#aplicar_rr_no_ni1").prop("checked", false);
+    }   
+
+});      
       $('#con_tipo').change(function(){
 
          // Department id
@@ -283,9 +324,37 @@ console.log(response);
       });
 //    
     var endpoint = "localhost:8000/admin/";
-    $('#competencias').DataTable(
+    var detdt;
+    oTable = $('#competencias').DataTable(
             {
                 responsive: true,
+        "columnDefs": [
+            {
+                "targets": [ 5 ],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [ 6 ],
+                "visible": false
+            },
+            {
+                "targets": [ 7 ],
+                "visible": false
+            },
+            {
+                "targets": [ 10 ],
+                "visible": false
+            },  
+            {
+                "targets": [ 11 ],
+                "visible": false
+            },  
+            {
+                "targets": [ 12 ],
+                "visible": false
+            }                           
+        ],                
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -336,14 +405,7 @@ function eliminar(elemento) {
 }
 function detalle(elemento) {
     var id = $(elemento).attr('class').match(/\d+/)[0];
-    $("#con_tipo").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text()+'")').prop('selected', true);
-    $("#tipo_puntuacion").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(1)[0]).text()+'")').prop('selected', true);
-    $("#con_comp").find('option:contains("'+$($($($(elemento).parent().parent())[0]).find("td").eq(2)[0]).text()+'")').prop('selected', true);
-    $("#rango_inicial").val($($($(elemento).parent().parent())[0]).find("td").eq(3).html());
-    $("#rango_final").val($($($(elemento).parent().parent())[0]).find("td").eq(4).html());
-    $("#predominancia_resultado").val($($($(elemento).parent().parent())[0]).find("td").eq(5).html());
-    $("#resultado_descriptivo").val($($($(elemento).parent().parent())[0]).find("td").eq(6).html());
-    $("#comportamiento_descriptivo").val($($($(elemento).parent().parent())[0]).find("td").eq(7).html());
+
     if($($($(elemento).parent().parent())[0]).find("td").eq(9).html() == "Aplicar recomendaciones por resultados de nivel obtenido"){
         $("#aplicar_rr_no_ni").val("on");
         $("#aplicar_rr_no_ni1").prop("checked", true);
@@ -351,9 +413,7 @@ function detalle(elemento) {
     else{
         $("#aplicar_rr_no_ni").val("off");
         $("#aplicar_rr_no_ni1").prop("checked", false);
-    }
-        
-    $("#recomendacion").val($($($(elemento).parent().parent())[0]).find("td").eq(8).html());
+    }        
     
     $(".box-title, .btn-accion").text("Editar");
     $("#con_puntaje").val(id);

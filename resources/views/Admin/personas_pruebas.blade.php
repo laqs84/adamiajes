@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Prueba Empresarial</title>
+        <title>Evaluación psicocompetencial</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -318,7 +318,8 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
                                                             <input type="hidden" id="con_emp" name="con_emp" value="{{$con_emp}}">
                                                             <input type="hidden" id="con_persona" name="con_persona" value="{{$con_persona}}">         
                                                             <input type="hidden" id="con_test" name="con_test" value="{{$con_test}}">
-                                         <input type="hidden" id="random_pru" name="random_pru" value="{{$random_pru}}">                                            
+                                                            <input type="hidden" id="num_pruper" name="num_pruper" value="{{$num_pruper}}">
+                                                            <input type="hidden" id="random_pru" name="random_pru" value="{{$random_pru}}">                                            
                                                         </div>                                                        
   
 
@@ -544,6 +545,7 @@ for (var i=0, max=all.length; i < max; i++) {
     numchecks++;
     con_testv = document.getElementById("con_test").value;
     numsec_pruebav = document.getElementById("numsec_prueba").value;
+    num_pruperv = document.getElementById("num_pruper").value;
     con_personav = document.getElementById("con_persona").value;
     con_pregv = document.getElementById("con_preg_t").value;
     con_opcv = document.getElementById(all[i].id).getAttribute("valor");
@@ -551,14 +553,14 @@ for (var i=0, max=all.length; i < max; i++) {
     con_empv = document.getElementById("con_emp").value;
 
     respuesta = "resp-" + con_pregv;
-    sessionStorage.setItem(respuesta, JSON.stringify({con_test: con_testv,numsec_prueba: numsec_pruebav, con_persona: con_personav, con_emp : con_empv, con_comp : con_compv, con_preg : con_pregv, con_opc : con_opcv}));
+    sessionStorage.setItem(respuesta, JSON.stringify({con_test: con_testv,numsec_prueba: numsec_pruebav, con_persona: con_personav, con_emp : con_empv, con_comp : con_compv, con_preg : con_pregv, con_opc : con_opcv, num_pruper : num_pruperv}));
 for (const key in sessionStorage) {
     console.log(`${key}: ${sessionStorage.getItem(key)}`);
 }
   }
 }
 if(entro==1 && numchecks==0){
-     alert("Disculpe, debe elegir una opcion para avanzar");
+     alert("Disculpe, debe elegir una opción para avanzar");
      return;
 }
 else{

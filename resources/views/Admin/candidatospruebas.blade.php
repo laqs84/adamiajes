@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Informes de las pruebsas de los Candidatos</title>
+        <title>Informes de las pruebas de los candidatos</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -44,15 +44,33 @@
             <div class="content-wrapper" id="pjax-container">
                 {!! Admin::style() !!}
                 <div id="app">
+<div id="titulo" hidden="">
+                    <section class="content-header">
+                       <center> 
+                        <h1>
+                            EVALUACION PSICOCOMPETENCIAL
+                        </h1>
+                        <h3 id = "nombre"></h3>  
+                        <h3 id = "empresa"></h3>  
+                        <h4 id = "puesto"></h4>  
+                        <h4>Fecha de evaluación</h4>                                    
+                        <h4 id = "fecha"></h4> 
+
+                        
+                        </center>
+                    </section>                    
+</div>                                      
+<div id="title">
                     <section class="content-header">
                         <h1>
-                            Informes de las pruebsas de los Candidatos
+                            Informes de las pruebas de los candidatos
                             <small>Mantemiento</small>
                         </h1>
                     </section>
+</div>                    
                     <section class="content">
 
-
+                      <div id="informe">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="box box-info">
@@ -97,10 +115,18 @@
 
                             </div>
                         </div>
-
+                      </div>
+                      <div id="resultado" hidden="">
+                          <div id=parrafo1>
+                            <p>El presente informe registra los resultados obtenidos por <b id="nompar1"> Jorge Pacheco Corrales</b> en la evaluación psicocompetencial para el puesto <b id="puepar1">Analista de tesorería</b>.</p>
+                            <p>Se le aplicaron las <b>siguientes pruebas:</b></p>
+                          </div>
+                      </div>
                     </section>
                 </div>
-
+<div>
+    <button onclick="pdf()">PDF</button>
+</div>
                 <script>
                     $(function () {
 
@@ -159,20 +185,76 @@
                                 });
 
                     }
+function pdf(){
+    alert("hola");
+    id=29;
+var data = '';
+        $.ajax({
+            type: 'GET',
+            url: "/admin/candidatospruebas/download/"+ id,
+            data: data,
+success: function(blob, status, xhr) {
 
-                    function detalle(elemento) {
-                        var id = $(elemento).attr('class').match(/\d+/)[0];
+                    var ieEDGE = navigator.userAgent.match('/Edge/g');
+                    var ie = navigator.userAgent.match('/.NET/g'); // IE 11+
+                    var oldIE = navigator.userAgent.match('/MSIE/g');
 
-                        $("#con_emp").find('option:contains("' + $($($($(elemento).parent().parent())[0]).find("td").eq(0)[0]).text() + '")').prop('selected', true);
-                        $("#tipo_identificacion").val($($($(elemento).parent().parent())[0]).find("td").eq(1).html());
-                        $("#num_identificacion").val($($($(elemento).parent().parent())[0]).find("td").eq(2).html());
-                        $("#nombres").val($($($(elemento).parent().parent())[0]).find("td").eq(3).html());
-                        $("#apellido1").val($($($(elemento).parent().parent())[0]).find("td").eq(4).html());
-                        $("#apellido2").val($($($(elemento).parent().parent())[0]).find("td").eq(5).html());
-                        $("#email").val($($($(elemento).parent().parent())[0]).find("td").eq(6).html());
-                        $(".box-title, .btn-accion").text("Editar");
-                        $("#con_persona").val(id);
+                    if (ie || oldIE || ieEDGE) {
+                        window.navigator.msSaveBlob(blob, fileName);
+                    } else {
+var binaryData = [];
+binaryData.push(blob);
+                     fileURL= blob;
+                        // var fileURL = window.URL.createObjectURL(new Blob(binaryData, {type: "application/pdf"}))
+                        document.write('<iframe src="' + fileURL + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
                     }
+                },
+            error: function(blob){
+                console.log(blob);
+            }
+        });    
+  
+}
+function informe(id) {
+
+    $.ajax(
+            {
+                url: "/admin/candidatospruebas/informe/" + id,
+                type: 'GET',
+                dataType: "JSON",
+                success: function (response)
+                {
+
+console.log("AAABBBB");
+console.log(response.data);
+              h = document.getElementById("informe");
+              h.style.display = "none"; 
+              h = document.getElementById("resultado");
+              h.style.display = "block";               
+              h = document.getElementById("title");
+              h.style.display = "none"; 
+              h = document.getElementById("titulo");
+              h.style.display = "block"; 
+              h = document.getElementById("nombre");
+              h.innerHTML = response.data.nombre;
+              h = document.getElementById("puesto");
+              h.innerHTML = response.data.puesto;
+
+              h = document.getElementById("nompar1");
+              h.innerHTML = response.data.nombre;              
+              h = document.getElementById("puepar1");
+              h.innerHTML = response.data.puesto;    
+
+              h = document.getElementById("empresa");
+              h.innerHTML = response.data.empresa;
+              h = document.getElementById("fecha");
+              h.innerHTML = response.data.fecha;
+              
+                }
+            });
+}
+
+
 
                     
                 </script>
